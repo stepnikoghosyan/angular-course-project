@@ -11,12 +11,14 @@ import { AuthComponent } from './auth.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormErrorMessagesModule } from '@shared/modules/form-error-messages/form-error-messages.module';
+import { VerifyAccountComponent } from './components/verify-account/verify-account.component';
 
 @NgModule({
   declarations: [
     AuthComponent,
     LoginComponent,
     RegisterComponent,
+    VerifyAccountComponent,
   ],
   imports: [
     CommonModule,

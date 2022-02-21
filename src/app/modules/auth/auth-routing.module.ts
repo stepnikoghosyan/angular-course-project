@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { VerifyAccountComponent } from './components/verify-account/verify-account.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
         path: 'register',
         component: RegisterComponent,
       },
+      {
+        path: 'verify-account/:activationToken',
+        component: VerifyAccountComponent,
+      }
     ],
   },
 ];

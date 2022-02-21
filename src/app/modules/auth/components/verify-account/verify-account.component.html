@@ -1,0 +1,39 @@
+<div class="d-flex">
+  <div class="w-100">
+    <h3 class="mb-4 text-center">Verify Account</h3>
+  </div>
+</div>
+
+<section>
+  <p class="text-center">{{ state }}</p>
+
+  <!-- Loader -->
+  <app-spinner *ngIf="isLoading"></app-spinner>
+
+  <div class="form-input-group mt-4">
+    <button (click)="showEmailInput = true" [disabled]="isLoading || showEmailInput" type="submit"
+            class="form-control btn btn-dark rounded submit px-3">
+      Re-send activation token
+    </button>
+  </div>
+
+  <form *ngIf="showEmailInput">
+    <div class="form-input-group">
+      <label class="form-control-placeholder" for="email">Email</label>
+      <input id="email" [formControl]="emailCtrl" type="text" class="form-control">
+      <app-input-error [formCtrl]="emailCtrl"></app-input-error>
+    </div>
+
+    <div class="form-input-group mt-4">
+      <button (click)="onSubmit()" [disabled]="isLoading" type="submit"
+              class="form-control btn btn-primary rounded submit px-3">
+        Send Email
+      </button>
+    </div>
+  </form>
+
+  <div class="d-flex justify-content-evenly mt-4">
+    <a class="btn btn-info" routerLink="/auth/login" role="button">Sign In</a>
+    <a class="btn btn-info" routerLink="/auth/register" role="button">Sign Up</a>
+  </div>
+</section>

@@ -3,8 +3,8 @@ import { NotificationTypes } from '@shared/modules/notifications/models/notifica
 export function getNotificationClassesByType(type: NotificationTypes): string {
   const config = {
     [NotificationTypes.SUCCESS]: 'toast-success',
-    [NotificationTypes.ERROR]: 'toast-success',
-    [NotificationTypes.WARNING]: 'toast-success',
+    [NotificationTypes.ERROR]: 'toast-error',
+    [NotificationTypes.WARNING]: 'toast-info',
   };
 
   return config[type];

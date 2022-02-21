@@ -65,8 +65,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.subscription = this.authService.login(values)
       .subscribe({
-        next: (res) => {
-          console.log('RESPONSE:', res);
+        next: () => {
+          this.router.navigate(['/home']);
         },
         error: (err: HttpErrorResponse) => {
           this.responseErrorMsg = (err.error as IApiErrorResponse).message || 'Unknown error occurred';
