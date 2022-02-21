@@ -1,0 +1,56 @@
+<div class="d-flex">
+  <div class="w-100">
+    <h3 class="mb-4 text-center">Sign Up</h3>
+  </div>
+</div>
+
+<form [formGroup]="form">
+  <!-- First Name -->
+  <div class="form-input-group">
+    <label class="form-control-placeholder" for="firstname">First Name</label>
+    <input id="firstname" formControlName="firstName" type="text" class="form-control">
+    <app-input-error [formCtrl]="form.get('firstName')"></app-input-error>
+  </div>
+
+  <!-- First Name -->
+  <div class="form-input-group">
+    <label class="form-control-placeholder" for="lastname">Last Name</label>
+    <input id="lastname" formControlName="lastName" type="text" class="form-control">
+    <app-input-error [formCtrl]="form.get('lastName')"></app-input-error>
+  </div>
+
+  <!-- Email -->
+  <div class="form-input-group">
+    <label class="form-control-placeholder" for="email">Email</label>
+    <input id="email" formControlName="email" type="text" class="form-control">
+    <app-input-error [formCtrl]="form.get('email')"></app-input-error>
+  </div>
+
+  <!-- Password -->
+  <div class="form-input-group">
+    <label class="form-control-placeholder" for="password">Password</label>
+    <input id="password" formControlName="password" [type]="showPasswordAsText && 'text' || 'password'"
+           class="form-control">
+    <span (click)="showPasswordAsText = !showPasswordAsText" class="fa fa-fw field-icon field-icon-hoverable"
+          [ngClass]="showPasswordAsText && 'fa-eye' || 'fa-eye-slash'"></span>
+    <app-input-error [formCtrl]="form.get('password')"></app-input-error>
+  </div>
+
+  <!-- Loader -->
+  <app-spinner *ngIf="isLoading"></app-spinner>
+
+  <!-- Api error response message -->
+  <p *ngIf="responseErrorMsg" class="error-msg text-center">{{ responseErrorMsg }}</p>
+
+  <!-- Sign Up button -->
+  <div class="form-input-group mt-4">
+    <button (click)="onSubmit()" type="submit" class="form-control btn btn-primary rounded submit px-3">
+      Sign Up
+    </button>
+  </div>
+</form>
+
+<!-- Sign up -->
+<p class="text-center mt-4">
+  Already a member? <a routerLink="/auth/login">Sign In</a>
+</p>

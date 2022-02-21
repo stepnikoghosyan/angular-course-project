@@ -38,7 +38,7 @@ export abstract class BaseHttpService<T> {
     });
   }
 
-  protected getSingle<T>(url: string, params?: IQueryParams, headers?: HttpHeaders): Observable<T> {
+  protected get<T>(url: string, params?: IQueryParams, headers?: HttpHeaders): Observable<T> {
     return this.http.get<T>(`${ this.BASE_API_ENDPOINT }/${ url }/`, {
       params: anyToHttpParams(params),
       headers,
@@ -51,15 +51,15 @@ export abstract class BaseHttpService<T> {
     });
   }
 
-  protected post<DataType, ResponseType>(url: string, body: DataType | T): Observable<ResponseType> {
+  protected post<PayloadType, ResponseType>(url: string, body: PayloadType | T): Observable<ResponseType> {
     return this.http.post<ResponseType>(`${ this.BASE_API_ENDPOINT }/${ url }/`, body);
   }
 
-  protected patch<DataType, ResponseType = T>(url: string, body: DataType | T): Observable<ResponseType> {
+  protected patch<PayloadType, ResponseType = T>(url: string, body: PayloadType | T): Observable<ResponseType> {
     return this.http.patch<ResponseType>(`${ this.BASE_API_ENDPOINT }/${ url }/`, body);
   }
 
-  protected put<DataType>(url: string, body: DataType | T): Observable<T> {
+  protected put<PayloadType>(url: string, body: PayloadType | T): Observable<T> {
     return this.http.put<T>(`${ this.BASE_API_ENDPOINT }/${ url }/`, body);
   }
 

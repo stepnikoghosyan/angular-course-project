@@ -1,0 +1,60 @@
+<div class="d-flex">
+  <div class="w-100">
+    <h3 class="mb-4 text-center">Sign In</h3>
+  </div>
+</div>
+
+<form [formGroup]="form">
+  <!-- Email -->
+  <div class="form-input-group">
+    <label class="form-control-placeholder" for="email">Email</label>
+    <input id="email" formControlName="email" type="text" class="form-control">
+    <app-input-error [formCtrl]="form.get('email')"></app-input-error>
+  </div>
+
+  <!-- Password -->
+  <div class="form-input-group">
+    <label class="form-control-placeholder" for="password">Password</label>
+    <input id="password" formControlName="password" [type]="showPasswordAsText && 'text' || 'password'"
+           class="form-control">
+    <span (click)="showPasswordAsText = !showPasswordAsText" class="fa fa-fw field-icon field-icon-hoverable"
+          [ngClass]="showPasswordAsText && 'fa-eye' || 'fa-eye-slash'"></span>
+    <app-input-error [formCtrl]="form.get('password')"></app-input-error>
+  </div>
+
+  <!-- Loader -->
+  <app-spinner *ngIf="isLoading"></app-spinner>
+
+  <!-- Api error response message -->
+  <p *ngIf="responseErrorMsg" class="error-msg text-center">{{ responseErrorMsg }}</p>
+
+  <!-- Sign In button -->
+  <div class="form-input-group mt-4">
+    <button (click)="onSubmit()" [disabled]="isLoading" type="submit"
+            class="form-control btn btn-primary rounded submit px-3">
+      Sign In
+    </button>
+  </div>
+
+
+  <div class="form-input-group d-md-flex">
+    <!-- Remember me -->
+    <div class="w-50 text-left">
+      <label class="checkbox-wrap checkbox-primary mb-0">
+        Remember Me
+        <input type="checkbox">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+
+    <!-- Forgot password -->
+    <div class="w-50 text-md-right">
+      <a href="#">Forgot Password</a>
+    </div>
+  </div>
+</form>
+
+<!-- Sign up -->
+<p class="text-center mt-4">
+  Not a member? <a routerLink="/auth/register">Register</a>
+</p>
