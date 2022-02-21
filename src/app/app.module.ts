@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationsModule } from '@shared/modules/notifications/notifications.module';
+import { LayoutModule } from '@shared/modules/layout/layout.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { NotificationsModule } from '@shared/modules/notifications/notifications
     HttpClientModule,
     BrowserAnimationsModule,
     NotificationsModule.forRoot(),
+    LayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,0 +1,12 @@
+.nav-link:hover:not(.active) {
+  cursor: pointer;
+  background-color: #b1d1ff;
+  color: #000000;
+  border-radius: 5px;
+}
+
+.custom-active {
+  color: #fff;
+  background-color: #0d6efd;
+  border-radius: 5px;
+}
