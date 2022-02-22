@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, emailValidator]],
       password: ['', [Validators.required]],
+      rememberMe: [false],
     });
   }
 
@@ -63,7 +64,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     const values = this.form.value;
     this.form.disable();
 
-    this.subscription = this.authService.login(values)
+    this.subscription = this.authService.login({
+      email: values.email,
+      password: values.password,
+    }, values.rememberMe)
       .subscribe({
         next: () => {
           this.router.navigate(['/home']);

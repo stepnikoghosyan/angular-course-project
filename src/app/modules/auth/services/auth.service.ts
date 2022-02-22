@@ -34,7 +34,13 @@ export class AuthService extends BaseHttpService<any> {
     super(http);
   }
 
-  public login(payload: ILoginPayload): Observable<IUser> {
+  public login(payload: ILoginPayload, rememberMe = true): Observable<IUser> {
+    if (rememberMe) {
+      this.storageService.setStorageType('localStorage');
+    } else {
+      this.storageService.setStorageType('sessionStorage');
+    }
+
     return this.post<ILoginPayload, ITokensResponse>(`${ this.URL }/login`, payload)
       .pipe(
         tap((res) => this.storageService.setTokens(res)),
@@ -96,6 +102,7 @@ export class AuthService extends BaseHttpService<any> {
 
   public logout(): void {
     this.storageService.clear();
+    this.appStateService.clear();
     this.router.navigate(['/auth/login']);
   }
 }

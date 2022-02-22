@@ -5,22 +5,32 @@ import { ITokensResponse } from '../../modules/auth/models/tokens-response.model
 
 @Injectable({ providedIn: 'root' })
 export class StorageService {
+  private storageType: 'localStorage' | 'sessionStorage';
+
+  public setStorageType(type: 'localStorage' | 'sessionStorage'): void {
+    this.storageType = type;
+  }
+
   public getAccessToken(): string {
-    const token = localStorage.getItem('accessToken');
+    const token = this.STORAGE.getItem('accessToken');
     return token || '';
   }
 
   public getRefreshToken(): string {
-    const token = localStorage.getItem('refreshToken');
+    const token = this.STORAGE.getItem('refreshToken');
     return token || '';
   }
 
   public setTokens(tokens: ITokensResponse): void {
-    localStorage.setItem('accessToken', tokens.accessToken);
-    localStorage.setItem('refreshToken', tokens.refreshToken);
+    this.STORAGE.setItem('accessToken', tokens.accessToken);
+    this.STORAGE.setItem('refreshToken', tokens.refreshToken);
+  }
+
+  private get STORAGE() {
+    return this.storageType === 'sessionStorage' ? sessionStorage : localStorage;
   }
 
   public clear(): void {
-    localStorage.clear();
+    this.STORAGE.clear();
   }
 }
