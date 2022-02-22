@@ -22,7 +22,6 @@ export class HeaderComponent {
   }
 
   public logout(): void {
-    console.log('logout');
     this.authService.logout();
   }
 }
