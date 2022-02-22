@@ -4,4 +4,7 @@ export interface IUser {
   email: string;
   activatedAt: Date;
   profilePictureUrl?: string;
+
+  // FE side only
+  fullName: string;
 }

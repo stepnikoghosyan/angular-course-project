@@ -8,15 +8,17 @@ import { NotAuthGuard } from './guards/not-auth.guard';
 // components
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LayoutComponent } from '@shared/modules/layout/components/layout/layout.component';
+import { AppRoutes } from '@shared/models/app-routes.model';
+import { getFullRoute } from '@shared/utils/get-full-route.helper';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: AppRoutes.Auth,
     pathMatch: 'full',
   },
   {
-    path: 'auth',
+    path: AppRoutes.Auth,
     canLoad: [NotAuthGuard],
     canActivate: [NotAuthGuard],
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule),
@@ -28,11 +30,15 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'home',
+        path: AppRoutes.Home,
         loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
       },
       {
-        path: 'not-found',
+        path: AppRoutes.Posts,
+        loadChildren: () => import('./modules/posts/posts.module').then(m => m.PostsModule),
+      },
+      {
+        path: AppRoutes.NotFound,
         component: NotFoundComponent,
       },
       {
@@ -43,7 +49,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/auth/login',
+    redirectTo: getFullRoute(AppRoutes.Login),
   },
 ];
 

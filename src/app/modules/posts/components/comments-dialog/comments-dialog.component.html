@@ -1,0 +1,24 @@
+<div class="container">
+  <!-- Add Comment -->
+  <h3 class="mt-4 fs2">Add Comment</h3>
+  <form>
+    <div class="mb-3">
+      <textarea class="form-control" placeholder="Comment" id="exampleFormControlTextarea1" rows="3"></textarea>
+
+      <div class="mt-2 d-flex justify-content-end">
+        <button class="btn btn-primary btn-sm" type="button">Post comment</button>
+        <button class="btn btn-outline-primary btn-sm ms-1" type="button">Cancel</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Comments List -->
+  <h3 class="text-center">Comments</h3>
+
+  <div class="bg-light p-2">
+    <div class="d-flex flex-row align-items-start">
+      <img class="rounded-circle" [src]="post.user.profilePictureUrl" width="40">
+      <textarea class="form-control ms-2 shadow-none textarea" disabled></textarea>
+    </div>
+  </div>
+</div>

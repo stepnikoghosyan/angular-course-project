@@ -1,0 +1,16 @@
+.card-img-top {
+  max-width: 150px;
+  align-self: center;
+}
+
+.post-body-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.post-card-footer {
+  padding: 0.5rem 1rem;
+  background-color: rgba(0,0,0,.02);
+  border-top: 1px solid rgba(0,0,0,.125);
+}

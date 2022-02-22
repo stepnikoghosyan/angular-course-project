@@ -82,7 +82,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   private handleSuccess(): void {
     this.notificationService.showNotification({
       type: NotificationTypes.SUCCESS,
-      message: 'New account created',
+      message: 'New account created. Please check your email address.',
       title: 'Success',
     });
     this.router.navigate(['/auth/login']);

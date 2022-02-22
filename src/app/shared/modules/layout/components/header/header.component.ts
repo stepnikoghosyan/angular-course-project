@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 // configs
-import { getNavigationItemsConfig } from '@shared/modules/layout/components/configs/navigation-items.config';
+import { getNavigationItemsConfig } from '@shared/modules/layout/configs/navigation-items.config';
 
 @Component({
   selector: 'app-header',

@@ -73,6 +73,11 @@ export class VerifyAccountComponent implements OnInit {
       });
   }
 
+  public onResendActivationToken(): void {
+    this.showEmailInput = true;
+    this.state = 'Enter your email address and we\'ll send you verification email again.';
+  }
+
   public onSubmit(): void {
     if (this.isLoading) {
       return;
@@ -85,6 +90,8 @@ export class VerifyAccountComponent implements OnInit {
     }
 
     this.isLoading = true;
+
+    this.state = 'Verifying Your account, please wait...';
 
     this.authService.resendActivationToken(this.emailCtrl.value)
       .pipe(take(1))
@@ -107,6 +114,7 @@ export class VerifyAccountComponent implements OnInit {
           });
 
           this.isLoading = false;
+          this.state = '';
         },
       });
   }

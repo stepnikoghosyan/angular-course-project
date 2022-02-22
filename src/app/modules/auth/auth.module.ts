@@ -12,6 +12,8 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormErrorMessagesModule } from '@shared/modules/form-error-messages/form-error-messages.module';
 import { VerifyAccountComponent } from './components/verify-account/verify-account.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { VerifyAccountComponent } from './components/verify-account/verify-accou
     LoginComponent,
     RegisterComponent,
     VerifyAccountComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     CommonModule,

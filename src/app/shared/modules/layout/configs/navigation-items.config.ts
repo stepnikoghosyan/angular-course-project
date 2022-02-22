@@ -17,10 +17,5 @@ export function getNavigationItemsConfig(): INavigationItemsConfig[] {
       route: '/posts',
       routerLinkActive: 'custom-active',
     },
-    {
-      label: 'Comments',
-      route: '/comments',
-      routerLinkActive: 'custom-active',
-    },
   ];
 }

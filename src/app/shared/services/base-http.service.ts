@@ -55,12 +55,8 @@ export abstract class BaseHttpService<T> {
     return this.http.post<ResponseType>(`${ this.BASE_API_ENDPOINT }/${ url }/`, body);
   }
 
-  protected patch<PayloadType, ResponseType = T>(url: string, body: PayloadType | T): Observable<ResponseType> {
-    return this.http.patch<ResponseType>(`${ this.BASE_API_ENDPOINT }/${ url }/`, body);
-  }
-
-  protected put<PayloadType>(url: string, body: PayloadType | T): Observable<T> {
-    return this.http.put<T>(`${ this.BASE_API_ENDPOINT }/${ url }/`, body);
+  protected put<PayloadType, ResponseType = T>(url: string, body: PayloadType | T): Observable<ResponseType> {
+    return this.http.put<ResponseType>(`${ this.BASE_API_ENDPOINT }/${ url }/`, body);
   }
 
   protected delete<T>(url: string): Observable<T> {
