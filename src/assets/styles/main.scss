@@ -1,3 +1,4 @@
+@import "components";
 @import "variables";
 @import "forms";
 
@@ -7,4 +8,11 @@
 
 .text-left {
   text-align: left!important;
+}
+
+// Center dialog in window
+.overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

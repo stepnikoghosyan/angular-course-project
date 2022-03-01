@@ -1,24 +1,33 @@
-<div class="container">
-  <!-- Add Comment -->
-  <h3 class="mt-4 fs2">Add Comment</h3>
-  <form>
-    <div class="mb-3">
-      <textarea class="form-control" placeholder="Comment" id="exampleFormControlTextarea1" rows="3"></textarea>
+<div class="modal-header">
+  <h3>Comments</h3>
+</div>
 
-      <div class="mt-2 d-flex justify-content-end">
-        <button class="btn btn-primary btn-sm" type="button">Post comment</button>
-        <button class="btn btn-outline-primary btn-sm ms-1" type="button">Cancel</button>
-      </div>
+<div class="modal-body">
+  <!-- Your comment -->
+  <form class="bg-light p-2 position-relative">
+    <div class="d-flex flex-row align-items-center">
+      <img class="rounded-circle" src="https://github.com/mdo.png" width="35">
+      <textarea [formControl]="ctrl" class="form-control ms-2 shadow-none comment-box"></textarea>
+
+      <button (click)="onSubmit()" [disabled]="isLoading" type="button" class="btn btn-sm btn-outline-primary ms-1">
+        <i class="fa fa-send"></i>
+      </button>
     </div>
+
+    <app-spinner *ngIf="isLoading" class="position-absolute" style="top: 0;left: 50%;transform: translateX(-50%);"></app-spinner>
   </form>
 
-  <!-- Comments List -->
-  <h3 class="text-center">Comments</h3>
-
-  <div class="bg-light p-2">
-    <div class="d-flex flex-row align-items-start">
-      <img class="rounded-circle" [src]="post.user.profilePictureUrl" width="40">
-      <textarea class="form-control ms-2 shadow-none textarea" disabled></textarea>
+  <!-- Comments list -->
+  <ng-container *ngIf="!!comments">
+    <div *ngFor="let comment of comments" class="bg-light p-2">
+      <div class="d-flex flex-row align-items-start">
+        <img class="rounded-circle" [src]="comment.user.profilePictureUrl" width="35">
+        <textarea class="form-control ms-2 shadow-none comment-box" disabled>
+          {{ comment.message }}
+        </textarea>
+      </div>
     </div>
-  </div>
+  </ng-container>
+
+  <app-spinner *ngIf="!comments"></app-spinner>
 </div>

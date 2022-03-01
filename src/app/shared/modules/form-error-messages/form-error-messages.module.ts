@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 // components
 import { InputErrorComponent } from './components/form-error/input-error.component';
 
-// directives
-import { FormErrorDirective } from '@shared/modules/form-error-messages/directives/form-error.directive';
-
 @NgModule({
   declarations: [
     InputErrorComponent,
-    FormErrorDirective,
   ],
-  imports: [],
+  imports: [
+    CommonModule,
+  ],
   exports: [
     InputErrorComponent,
-    FormErrorDirective,
   ],
 })
 export class FormErrorMessagesModule {

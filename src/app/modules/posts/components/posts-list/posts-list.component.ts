@@ -10,6 +10,8 @@ import { NotificationsService } from '@shared/modules/notifications/services/not
 import { IPost } from '../../models/post.model';
 import { NotificationTypes } from '@shared/modules/notifications/models/notification-types.model';
 import { IApiErrorResponse } from '@shared/models/api-error-response.model';
+import { CommentsDialogComponent } from '../comments-dialog/comments-dialog.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   templateUrl: './posts-list.component.html',
@@ -24,6 +26,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly postsService: PostsService,
+    private readonly modalService: NgbModal,
     private readonly notificationsService: NotificationsService,
   ) {
   }
@@ -48,6 +51,11 @@ export class PostsListComponent implements OnInit, OnDestroy {
           });
         },
       });
+  }
+
+  public openCommentsDialog(post: IPost): void {
+    const ref = this.modalService.open(CommentsDialogComponent);
+    (ref.componentInstance as CommentsDialogComponent).post = post;
   }
 
   ngOnDestroy() {

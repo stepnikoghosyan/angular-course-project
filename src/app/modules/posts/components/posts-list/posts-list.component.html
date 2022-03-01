@@ -29,7 +29,7 @@
             <i class="fa fa-eye"></i>
           </a>
 
-          <button class="btn btn-sm btn-outline-primary ms-2 position-relative">
+          <button (click)="openCommentsDialog(post)" class="btn btn-sm btn-outline-primary ms-2 position-relative">
             <i class="fa fa-comment"></i>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
               {{ post.comments.length }}
@@ -40,3 +40,7 @@
     </div>
   </div>
 </div>
+
+<!--<ng-template #commentsModal let-modal>-->
+<!--  <app-comments-dialog [post]="post"></app-comments-dialog>-->
+<!--</ng-template>-->

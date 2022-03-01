@@ -1,3 +1,13 @@
-<p class="error-msg" *appInputError="let msg of formCtrl; additionalMessages: additionalMessages">
-  {{ msg }}
-</p>
+<ng-container *ngIf="isInvalid">
+  <ng-container *ngIf="isMultiline; else singleLine">
+    <p *ngFor="let msg of messages" class="error-msg">
+      {{ msg }}
+    </p>
+  </ng-container>
+
+  <ng-template #singleLine>
+    <p class="error-msg">
+      {{ messages[0] }}
+    </p>
+  </ng-template>
+</ng-container>
