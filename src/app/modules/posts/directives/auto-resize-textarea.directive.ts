@@ -1,34 +1,30 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Directive, DoCheck, ElementRef, Input } from '@angular/core';
 
 @Directive({
-  selector: '[autoResizeTextarea]',
+  selector: 'textarea[autoResizeTextarea]',
 })
-export class AutoResizeTextareaDirective implements OnInit, OnDestroy {
-  @Input() public isReadonly = true;
+export class AutoResizeTextareaDirective implements DoCheck, AfterViewInit {
+  @Input() public realtime = false;
 
   constructor(
     private readonly elRef: ElementRef<HTMLTextAreaElement>,
   ) {
   }
 
-  ngOnInit() {
-    if (!this.isReadonly) {
-      this.listenToValueChanges();
+  ngDoCheck() {
+    if (this.realtime) {
+      this.updateHeight();
     }
   }
 
-  private listenToValueChanges(): void {
-    this.elRef.nativeElement.addEventListener('input', this.updateHeight);
+  ngAfterViewInit() {
+    if (this.realtime) {
+      this.updateHeight();
+    }
   }
 
-  private updateHeight = () => {
+  private updateHeight(): void {
     this.elRef.nativeElement.style.height = 'auto';
     this.elRef.nativeElement.style.height = this.elRef.nativeElement.scrollHeight + 'px';
-  };
-
-  ngOnDestroy() {
-    if (!this.isReadonly) {
-      this.elRef.nativeElement.removeEventListener('input', this.updateHeight);
-    }
   }
 }

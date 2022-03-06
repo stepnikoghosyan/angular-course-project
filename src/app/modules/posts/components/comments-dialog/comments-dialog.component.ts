@@ -80,6 +80,9 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
       return;
     }
 
+    // this.handleSuccess();
+    // return;
+
     this.loaders.isAddingComment = true;
     this.ctrl.disable();
 

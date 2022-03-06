@@ -11,7 +11,7 @@
       <div class="d-flex rounded-3 ms-2 comment-box-background">
         <div class="flex-shrink-1 flex-grow-1 comment-box">
           <textarea [formControl]="ctrl"
-                    autoResizeTextarea [isReadonly]="false"
+                    autoResizeTextarea [realtime]="true"
                     class="form-control shadow-none"
                     rows="1">
           </textarea>
@@ -41,7 +41,7 @@
            [ngClass]="{ 'author-comment-box-background': comment.user.id === currentUserId }">
         <div class="flex-shrink-1 flex-grow-1 comment-box">
           <p [ngClass]="{'fw-bold': comment.user.id !== currentUserId }">{{ comment.user.fullName }}</p>
-          <textarea autoResizeTextarea [isReadonly]="true"
+          <textarea autoResizeTextarea
                     class="form-control shadow-none"
                     disabled>{{ comment.message }}</textarea>
         </div>
