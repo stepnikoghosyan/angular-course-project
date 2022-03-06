@@ -4,30 +4,48 @@
 
 <div class="modal-body">
   <!-- Your comment -->
-  <form class="bg-light p-2 position-relative">
-    <div class="d-flex flex-row align-items-center">
-      <img class="rounded-circle" src="https://github.com/mdo.png" width="35">
-      <textarea [formControl]="ctrl" class="form-control ms-2 shadow-none comment-box"></textarea>
+  <form class="p-2 position-relative">
+    <div class="d-flex flex-row">
+      <img class="comment-author-img rounded-circle" src="https://github.com/mdo.png" alt="Author Avatar">
 
-      <button (click)="onSubmit()" [disabled]="isLoading" type="button" class="btn btn-sm btn-outline-primary ms-1">
-        <i class="fa fa-send"></i>
-      </button>
-    </div>
+      <div class="d-flex rounded-3 ms-2 comment-box-background">
+        <div class="flex-shrink-1 flex-grow-1 comment-box">
+          <textarea [formControl]="ctrl"
+                    autoResizeTextarea [isReadonly]="false"
+                    class="form-control shadow-none"
+                    rows="1">
+          </textarea>
+        </div>
 
-    <app-spinner *ngIf="isLoading" class="position-absolute" style="top: 0;left: 50%;transform: translateX(-50%);"></app-spinner>
-  </form>
-
-  <!-- Comments list -->
-  <ng-container *ngIf="!!comments">
-    <div *ngFor="let comment of comments" class="bg-light p-2">
-      <div class="d-flex flex-row align-items-start">
-        <img class="rounded-circle" [src]="comment.user.profilePictureUrl" width="35">
-        <textarea class="form-control ms-2 shadow-none comment-box" disabled>
-          {{ comment.message }}
-        </textarea>
+        <div class="d-flex align-self-end me-2 mb-2">
+          <button (click)="onSubmit()"
+                  [disabled]="loaders.isAddingComment"
+                  type="button" class="btn btn-sm btn-outline-primary">
+            <i class="fa fa-send"></i>
+          </button>
+        </div>
       </div>
     </div>
-  </ng-container>
 
-  <app-spinner *ngIf="!comments"></app-spinner>
+    <app-spinner *ngIf="loaders.isAddingComment" [centerInRelativeParent]="true"></app-spinner>
+  </form>
+
+  <app-progress-bar *ngIf="loaders.isGettingComments"></app-progress-bar>
+
+  <!-- Comments list -->
+  <div *ngFor="let comment of comments; trackBy: trackBy" class="p-2">
+    <div class="d-flex flex-row">
+      <img class="comment-author-img rounded-circle" [src]="comment.user.profilePictureUrl" width="35" alt="Author Avatar">
+
+      <div class="d-flex rounded-3 ms-2 comment-box-background"
+           [ngClass]="{ 'author-comment-box-background': comment.user.id === currentUserId }">
+        <div class="flex-shrink-1 flex-grow-1 comment-box">
+          <p [ngClass]="{'fw-bold': comment.user.id !== currentUserId }">{{ comment.user.fullName }}</p>
+          <textarea autoResizeTextarea [isReadonly]="true"
+                    class="form-control shadow-none"
+                    disabled>{{ comment.message }}</textarea>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

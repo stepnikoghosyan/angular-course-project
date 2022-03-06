@@ -1,10 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormControl, Validators } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, finalize, takeUntil } from 'rxjs';
 
 // services
 import { CommentsService } from '../../services/comments.service';
+import { AppStateService } from '../../../../services/app-state.service';
 import { NotificationsService } from '@shared/modules/notifications/services/notifications.service';
 
 // models
@@ -21,18 +22,28 @@ import { NotificationTypes } from '@shared/modules/notifications/models/notifica
 export class CommentsDialogComponent implements OnInit, OnDestroy {
   @Input() public post: IPost;
 
-  public comments: IComment[] | null = null;
+  public comments: IComment[] = [];
 
-  public ctrl = new FormControl('', [Validators.required, Validators.minLength(1)]);
+  public ctrl = new FormControl('', [
+    Validators.required,
+    Validators.minLength(1),
+  ]);
 
-  public isLoading = false;
+  public loaders = {
+    isAddingComment: false,
+    isGettingComments: true,
+  };
+
+  public currentUserId: number | null = null;
 
   private subscriptions$ = new Subject<void>();
 
   constructor(
     private readonly commentsService: CommentsService,
     private readonly notificationsService: NotificationsService,
+    private readonly appStateService: AppStateService,
   ) {
+    this.currentUserId = this.appStateService.currentUser!.id;
   }
 
   ngOnInit(): void {
@@ -40,18 +51,25 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
   }
 
   private getCommentsForPost(): void {
-    this.comments = null;
+    this.loaders.isGettingComments = true;
 
     this.commentsService.getComments({ posts: [this.post.id], showAll: true })
-      .pipe(takeUntil(this.subscriptions$))
+      .pipe(
+        finalize(() => this.loaders.isGettingComments = false),
+        takeUntil(this.subscriptions$),
+      )
       .subscribe({
         next: res => this.comments = res.results,
         error: () => this.comments = [],
       });
   }
 
+  public trackBy(index: number, item: IComment): number {
+    return item.id;
+  }
+
   public onSubmit(): void {
-    if (this.isLoading) {
+    if (this.loaders.isAddingComment) {
       return;
     }
 
@@ -62,7 +80,8 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.isLoading = true;
+    this.loaders.isAddingComment = true;
+    this.ctrl.disable();
 
     this.commentsService.create(this.post.id, { message: this.ctrl.value })
       .pipe(takeUntil(this.subscriptions$))
@@ -75,7 +94,8 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
   private handleSuccess(): void {
     this.ctrl.reset('');
     this.getCommentsForPost();
-    this.isLoading = false;
+    this.ctrl.enable();
+    this.loaders.isAddingComment = false;
   }
 
   private handleError(error: HttpErrorResponse): void {
@@ -86,7 +106,8 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
       message,
     });
 
-    this.isLoading = false;
+    this.ctrl.enable();
+    this.loaders.isAddingComment = false;
   }
 
   ngOnDestroy() {

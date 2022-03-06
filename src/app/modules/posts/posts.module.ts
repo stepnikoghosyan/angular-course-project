@@ -4,13 +4,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 // modules
 import { PostsRoutingModule } from './posts-routing.module';
+import { LoadersModule } from '@shared/modules/loaders/loaders.module';
 
 // components
 import { PostsComponent } from './posts.component';
 import { PostsListComponent } from './components/posts-list/posts-list.component';
 import { PostsFilterComponent } from './components/posts-filter/posts-filter.component';
-import { LoadersModule } from '@shared/modules/loaders/loaders.module';
 import { CommentsDialogComponent } from './components/comments-dialog/comments-dialog.component';
+
+// directives
+import { AutoResizeTextareaDirective } from './directives/auto-resize-textarea.directive';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,7 @@ import { CommentsDialogComponent } from './components/comments-dialog/comments-d
     PostsListComponent,
     PostsFilterComponent,
     CommentsDialogComponent,
+    AutoResizeTextareaDirective,
   ],
   imports: [
     CommonModule,
