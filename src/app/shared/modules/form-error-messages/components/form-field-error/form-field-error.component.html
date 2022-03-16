@@ -1,4 +1,4 @@
-<ng-container *ngIf="isInvalid">
+<ng-container *ngIf="showErrors">
   <ng-container *ngIf="isMultiline; else singleLine">
     <p *ngFor="let msg of messages" class="error-msg">
       {{ msg }}

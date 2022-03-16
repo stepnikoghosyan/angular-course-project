@@ -2,17 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // components
-import { InputErrorComponent } from './components/form-error/input-error.component';
+import { FormFieldComponent } from './components/form-field/form-field.component';
+import { FormFieldErrorComponent } from './components/form-field-error/form-field-error.component';
 
 @NgModule({
   declarations: [
-    InputErrorComponent,
+    FormFieldComponent,
+    FormFieldErrorComponent,
   ],
   imports: [
     CommonModule,
   ],
   exports: [
-    InputErrorComponent,
+    FormFieldComponent,
+    FormFieldErrorComponent,
   ],
 })
 export class FormErrorMessagesModule {

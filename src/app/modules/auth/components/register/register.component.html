@@ -6,31 +6,24 @@
 
 <form [formGroup]="form">
   <!-- First Name -->
-  <div class="form-input-group">
-    <label class="form-control-placeholder" for="firstname">First Name</label>
+  <app-form-field labelFor="firstname" label="First Name">
     <input id="firstname" formControlName="firstName" type="text" class="form-control">
-    <app-input-error [formCtrl]="form.controls['firstName']"></app-input-error>
-  </div>
+  </app-form-field>
 
-  <!-- First Name -->
-  <div class="form-input-group">
-    <label class="form-control-placeholder" for="lastname">Last Name</label>
+  <!-- Last Name -->
+  <app-form-field labelFor="lastname" label="Last Name">
     <input id="lastname" formControlName="lastName" type="text" class="form-control">
-    <app-input-error [formCtrl]="form.controls['lastName']"></app-input-error>
-  </div>
+  </app-form-field>
 
   <!-- Email -->
-  <div class="form-input-group">
-    <label class="form-control-placeholder" for="email">Email</label>
+  <app-form-field labelFor="email" label="Email">
     <input id="email" formControlName="email" type="text" class="form-control">
-    <app-input-error [formCtrl]="form.controls['email']"></app-input-error>
-  </div>
+  </app-form-field>
 
   <!-- Password -->
-  <div class="form-input-group">
-    <app-password-field formControlName="password" label="Password"></app-password-field>
-    <app-input-error [formCtrl]="form.controls['password']"></app-input-error>
-  </div>
+  <app-form-field labelFor="password" label="Password">
+    <app-password-field formControlName="password"></app-password-field>
+  </app-form-field>
 
   <!-- Loader -->
   <app-spinner *ngIf="isLoading"></app-spinner>

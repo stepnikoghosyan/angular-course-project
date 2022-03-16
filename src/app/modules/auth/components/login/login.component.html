@@ -6,17 +6,14 @@
 
 <form [formGroup]="form">
   <!-- Email -->
-  <div class="form-input-group">
-    <label class="form-control-placeholder" for="email">Email</label>
+  <app-form-field labelFor="email" label="Email">
     <input id="email" formControlName="email" type="text" class="form-control">
-    <app-input-error [formCtrl]="form.controls['email']"></app-input-error>
-  </div>
+  </app-form-field>
 
   <!-- Password -->
-  <div class="form-input-group">
-    <app-password-field formControlName="password" label="Password"></app-password-field>
-    <app-input-error [formCtrl]="form.controls['password']"></app-input-error>
-  </div>
+  <app-form-field labelFor="password" label="Password">
+    <app-password-field formControlName="password"></app-password-field>
+  </app-form-field>
 
   <!-- Loader -->
   <app-spinner *ngIf="isLoading"></app-spinner>
@@ -33,9 +30,9 @@
   </div>
 
 
-  <div class="form-input-group d-md-flex">
+  <div class="form-input-group d-flex justify-content-center">
     <!-- Remember me -->
-    <div class="w-50 text-left">
+    <div>
       <label class="checkbox-wrap checkbox-primary mb-0">
         Remember Me
         <input formControlName="rememberMe" type="checkbox">
@@ -44,7 +41,7 @@
     </div>
 
     <!-- Forgot password -->
-    <div class="w-50 text-md-right">
+    <div class="ms-5">
       <a routerLink="/auth/forgot-password">Forgot Password</a>
     </div>
   </div>

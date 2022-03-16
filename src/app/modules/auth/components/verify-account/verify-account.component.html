@@ -18,11 +18,9 @@
   </div>
 
   <form *ngIf="showEmailInput">
-    <div class="form-input-group">
-      <label class="form-control-placeholder" for="email">Email</label>
+    <app-form-field labelFor="email" label="Email">
       <input id="email" [formControl]="emailCtrl" type="text" class="form-control">
-      <app-input-error [formCtrl]="emailCtrl"></app-input-error>
-    </div>
+    </app-form-field>
 
     <div class="form-input-group mt-4">
       <button (click)="onSubmit()" [disabled]="isLoading" type="submit"

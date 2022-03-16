@@ -1,0 +1,15 @@
+<div class="form-input-group">
+  <!-- Label -->
+  <label *ngIf="!!label" [for]="labelFor" class="form-control-placeholder">{{ label }}</label>
+
+  <!-- Form Control -->
+  <ng-content></ng-content>
+
+  <!-- Errors -->
+  <app-form-field-error
+    [errors]="!!ngControl && ngControl.errors || null"
+    [showErrors]="!!ngControl && ngControl.touched && ngControl.invalid || false"
+    [isMultiline]="showMultilineErrors"
+    [additionalErrorMessages]="customErrorMessages">
+  </app-form-field-error>
+</div>
