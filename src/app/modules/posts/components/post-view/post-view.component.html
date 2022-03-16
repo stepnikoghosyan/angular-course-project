@@ -1,0 +1,26 @@
+<app-spinner *ngIf="!post"></app-spinner>
+
+
+<article *ngIf="!!post" class="container">
+  <div class="d-flex flex-row align-items-center">
+    <img class="post-author-img rounded-circle me-5" [src]="post.user.profilePictureUrl" width="50" alt="Author Avatar">
+
+    <div class="d-flex flex-column">
+      <p class="m-0 fs-4">{{ post.user.fullName }}</p>
+      <p class="m-0 fs-6 text-secondary">{{ post.createdAt | date }}</p>
+    </div>
+
+  </div>
+
+  <h1 class="mt-4 fw-bold">{{ post.title }}</h1>
+
+  <div class="mt-5">
+    <img [src]="post.imageUrl" class="w-100 mw-100" alt="Post Image"/>
+  </div>
+
+  <div class="mt-4" style="font-size: 1.1rem">
+    {{ post.body }}
+  </div>
+
+  <app-comments-dialog [post]="post"></app-comments-dialog>
+</article>

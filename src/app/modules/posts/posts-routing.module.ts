@@ -3,12 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 // components
 import { PostsListComponent } from './components/posts-list/posts-list.component';
+import { PostViewComponent } from './components/post-view/post-view.component';
 
 const routes: Routes = [
   {
     path: '',
     component: PostsListComponent,
   },
+  {
+    path: ':id',
+    component: PostViewComponent,
+  }
 ];
 
 @NgModule({

@@ -2,7 +2,6 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormControl, Validators } from '@angular/forms';
 import { Subject, finalize, takeUntil } from 'rxjs';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 // services
 import { CommentsService } from '../../services/comments.service';
@@ -43,7 +42,6 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
   private subscriptions$ = new Subject<void>();
 
   constructor(
-    public readonly activeModal: NgbActiveModal,
     private readonly commentsService: CommentsService,
     private readonly notificationsService: NotificationsService,
     private readonly appStateService: AppStateService,
@@ -52,10 +50,6 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (!this.post) {
-      this.activeModal.close();
-    }
-
     this.getCommentsForPost();
   }
 

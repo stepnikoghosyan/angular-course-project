@@ -7,4 +7,6 @@ export interface IPost {
   comments: Array<any>; // TODO: update
   imageUrl: string | null;
   user: IUser;
+  createdAt: Date;
+  updatedAt: Date;
 }

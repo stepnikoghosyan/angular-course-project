@@ -1,52 +1,51 @@
-<div class="modal-header">
-  <h4 class="modal-title">Comments</h4>
-  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close()"></button>
-</div>
+<div class="ms-auto me-auto mt-5 comments-container">
+  <section>
+    <h4>Comments</h4>
 
-<div class="modal-body">
-  <!-- Your comment -->
-  <form class="p-2 position-relative">
-    <div class="d-flex flex-row">
-      <img class="comment-author-img rounded-circle" src="https://github.com/mdo.png" alt="Author Avatar">
+    <!-- Your comment -->
+    <form class="p-2 position-relative">
+      <div class="d-flex flex-row">
+        <img class="comment-author-img rounded-circle" src="https://github.com/mdo.png" alt="Author Avatar">
 
-      <div class="d-flex rounded-3 ms-2 comment-box-background">
-        <div class="flex-shrink-1 flex-grow-1 comment-box">
-          <textarea [formControl]="ctrl"
-                    autoResizeTextarea [realtime]="true"
-                    class="form-control shadow-none"
-                    rows="1">
-          </textarea>
+        <div class="d-flex rounded-3 ms-2 comment-box-background">
+          <div class="flex-shrink-1 flex-grow-1 comment-box">
+            <textarea [formControl]="ctrl"
+                      autoResizeTextarea [realtime]="true"
+                      class="form-control shadow-none"
+                      rows="1">
+            </textarea>
+          </div>
+
+          <div class="d-flex align-self-end me-2 mb-2">
+            <button (click)="onSubmit()"
+                    [disabled]="loaders.isAddingComment"
+                    type="button" class="btn btn-sm btn-outline-primary">
+              <i class="fa fa-send"></i>
+            </button>
+          </div>
         </div>
+      </div>
 
-        <div class="d-flex align-self-end me-2 mb-2">
-          <button (click)="onSubmit()"
-                  [disabled]="loaders.isAddingComment"
-                  type="button" class="btn btn-sm btn-outline-primary">
-            <i class="fa fa-send"></i>
-          </button>
+      <app-spinner *ngIf="loaders.isAddingComment" [centerInRelativeParent]="true"></app-spinner>
+    </form>
+
+    <app-progress-bar *ngIf="loaders.isGettingComments"></app-progress-bar>
+
+    <!-- Comments list -->
+    <div *ngFor="let comment of comments; trackBy: trackBy" class="p-2">
+      <div class="d-flex flex-row">
+        <img class="comment-author-img rounded-circle" [src]="comment.user.profilePictureUrl" width="35" alt="Author Avatar">
+
+        <div class="d-flex rounded-3 ms-2 comment-box-background"
+             [ngClass]="{ 'author-comment-box-background': comment.user.id === currentUserId }">
+          <div class="flex-shrink-1 flex-grow-1 comment-box">
+            <p [ngClass]="{'fw-bold': comment.user.id !== currentUserId }">{{ comment.user.fullName }}</p>
+            <textarea autoResizeTextarea
+                      class="form-control shadow-none"
+                      disabled>{{ comment.message }}</textarea>
+          </div>
         </div>
       </div>
     </div>
-
-    <app-spinner *ngIf="loaders.isAddingComment" [centerInRelativeParent]="true"></app-spinner>
-  </form>
-
-  <app-progress-bar *ngIf="loaders.isGettingComments"></app-progress-bar>
-
-  <!-- Comments list -->
-  <div *ngFor="let comment of comments; trackBy: trackBy" class="p-2">
-    <div class="d-flex flex-row">
-      <img class="comment-author-img rounded-circle" [src]="comment.user.profilePictureUrl" width="35" alt="Author Avatar">
-
-      <div class="d-flex rounded-3 ms-2 comment-box-background"
-           [ngClass]="{ 'author-comment-box-background': comment.user.id === currentUserId }">
-        <div class="flex-shrink-1 flex-grow-1 comment-box">
-          <p [ngClass]="{'fw-bold': comment.user.id !== currentUserId }">{{ comment.user.fullName }}</p>
-          <textarea autoResizeTextarea
-                    class="form-control shadow-none"
-                    disabled>{{ comment.message }}</textarea>
-        </div>
-      </div>
-    </div>
-  </div>
+  </section>
 </div>

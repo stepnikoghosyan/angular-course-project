@@ -9,5 +9,7 @@ export function normalizePostResponse(post: IPost): IPost {
     ...post,
     user: normalizeUserResponse(post.user),
     imageUrl: post.imageUrl || '/assets/img/post-image-placeholder.png',
+    createdAt: new Date(post.createdAt),
+    updatedAt: new Date(post.updatedAt),
   };
 }

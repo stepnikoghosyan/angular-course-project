@@ -15,6 +15,7 @@ import { CommentsDialogComponent } from './components/comments-dialog/comments-d
 
 // directives
 import { AutoResizeTextareaDirective } from './directives/auto-resize-textarea.directive';
+import { PostViewComponent } from './components/post-view/post-view.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AutoResizeTextareaDirective } from './directives/auto-resize-textarea.d
     CommentsDialogComponent,
     AutoResizeTextareaDirective,
     PostCardComponent,
+    PostViewComponent,
   ],
   imports: [
     CommonModule,
