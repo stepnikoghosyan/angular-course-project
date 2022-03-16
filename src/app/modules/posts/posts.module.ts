@@ -9,6 +9,7 @@ import { LoadersModule } from '@shared/modules/loaders/loaders.module';
 // components
 import { PostsComponent } from './posts.component';
 import { PostsListComponent } from './components/posts-list/posts-list.component';
+import { PostCardComponent } from './components/post-card/post-card.component';
 import { PostsFilterComponent } from './components/posts-filter/posts-filter.component';
 import { CommentsDialogComponent } from './components/comments-dialog/comments-dialog.component';
 
@@ -22,6 +23,7 @@ import { AutoResizeTextareaDirective } from './directives/auto-resize-textarea.d
     PostsFilterComponent,
     CommentsDialogComponent,
     AutoResizeTextareaDirective,
+    PostCardComponent,
   ],
   imports: [
     CommonModule,
