@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 // services
 import { BaseHttpService } from '@shared/services/base-http.service';
@@ -9,13 +10,16 @@ import { BaseHttpService } from '@shared/services/base-http.service';
 import { IPost } from '../models/post.model';
 import { IPaginationResponse } from '@shared/models/pagination-response.model';
 import { IPostsQueryParams } from '../models/posts-query-params.model';
-import { ICreatePostPayload } from '../models/payload/create-post-payload.model';
 import { ICreateOrUpdatePostResponse } from '../models/create-post-response.model';
 import { IUpdatePostPayload } from '../models/payload/update-post-payload.model';
 
+// dto
+import { CreatePostDto } from '../models/dto/create-post.dto';
+
 // helpers
 import { convertJsonToFormData } from '@shared/utils/json-to-form-data.helper';
-import { map } from 'rxjs/operators';
+
+// normalizers
 import { normalizePostResponse } from '../normalizers/post-response.normalizer';
 
 @Injectable({ providedIn: 'root' })
@@ -47,7 +51,7 @@ export class PostsService extends BaseHttpService<IPost> {
       );
   }
 
-  public createPost(payload: ICreatePostPayload): Observable<ICreateOrUpdatePostResponse> {
+  public createPost(payload: CreatePostDto): Observable<ICreateOrUpdatePostResponse> {
     return this.post<FormData, ICreateOrUpdatePostResponse>(this.URL, convertJsonToFormData(payload));
   }
 

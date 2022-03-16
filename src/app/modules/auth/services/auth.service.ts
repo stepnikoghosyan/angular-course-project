@@ -11,14 +11,16 @@ import { StorageService } from '@shared/services/storage.service';
 
 // models
 import { ITokensResponse } from '../models/tokens-response.model';
-import { ILoginPayload } from '../models/payload/login-payload.model';
-import { IRegisterPayload } from '../models/payload/register-payload.model';
 import { IRefreshTokensPayload } from '../models/payload/refresh-tokens-payload.model';
-import { IForgotPasswordPayload } from '../models/payload/forgot-password-payload.model';
-import { IResetPasswordPayload } from '../models/payload/reset-password-payload.model';
 import { IVerifyAccountQueryParams } from '../models/verify-account-query-params.model';
-import { IResendActivationTokenPayload } from '../models/payload/resend-activation-token-payload.model';
 import { IUser } from '../../users/models/user.model';
+
+// dto
+import { ResetPasswordDto } from '../models/dto/reset-password.dto';
+import { ForgotPasswordDto } from '../models/dto/forgot-password.dto';
+import { LoginDto } from '../models/dto/login.dto';
+import { RegisterDto } from '../models/dto/register.dto';
+import { ResendActivationTokenDto } from '../models/dto/resend-activation-token.dto';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends BaseHttpService<any> {
@@ -34,42 +36,42 @@ export class AuthService extends BaseHttpService<any> {
     super(http);
   }
 
-  public login(payload: ILoginPayload, rememberMe = true): Observable<IUser> {
+  public login(payload: LoginDto, rememberMe = true): Observable<IUser> {
     if (rememberMe) {
       this.storageService.setStorageType('localStorage');
     } else {
       this.storageService.setStorageType('sessionStorage');
     }
 
-    return this.post<ILoginPayload, ITokensResponse>(`${ this.URL }/login`, payload)
+    return this.post<LoginDto, ITokensResponse>(`${ this.URL }/login`, payload)
       .pipe(
         tap((res) => this.storageService.setTokens(res)),
         switchMap(() => this.usersService.getCurrentUser()),
       );
   }
 
-  public register(payload: IRegisterPayload): Observable<void> {
-    return this.post<IRegisterPayload, void>(`${ this.URL }/register`, payload);
+  public register(payload: RegisterDto): Observable<void> {
+    return this.post<RegisterDto, void>(`${ this.URL }/register`, payload);
   }
 
   public refreshTokens(refreshToken: string): Observable<ITokensResponse> {
     return this.post<IRefreshTokensPayload, ITokensResponse>(`${ this.URL }/refresh-tokens`, { refreshToken } as IRefreshTokensPayload);
   }
 
-  public forgotPassword(email: string): Observable<void> {
-    return this.post<IForgotPasswordPayload, void>(`${ this.URL }/forgot-password`, { email } as IForgotPasswordPayload);
+  public forgotPassword(payload: ForgotPasswordDto): Observable<void> {
+    return this.post<ForgotPasswordDto, void>(`${ this.URL }/forgot-password`, payload);
   }
 
-  public resetPassword(payload: IResetPasswordPayload): Observable<void> {
-    return this.post<IResetPasswordPayload, void>(`${ this.URL }/reset-password`, payload);
+  public resetPassword(payload: ResetPasswordDto): Observable<void> {
+    return this.post<ResetPasswordDto, void>(`${ this.URL }/reset-password`, payload);
   }
 
   public verifyAccount(activationToken: string): Observable<void> {
     return this.get(`${ this.URL }/verify-account`, { activationToken } as IVerifyAccountQueryParams);
   }
 
-  public resendActivationToken(email: string): Observable<void> {
-    return this.post<IResendActivationTokenPayload, void>(`${ this.URL }/resend-activation-token`, { email } as IResendActivationTokenPayload);
+  public resendActivationToken(data: ResendActivationTokenDto): Observable<void> {
+    return this.post<ResendActivationTokenDto, void>(`${ this.URL }/resend-activation-token`, data);
   }
 
   public get isAuthenticated(): boolean {

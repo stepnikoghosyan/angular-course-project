@@ -20,6 +20,8 @@ export class InputErrorComponent implements DoCheck {
 
   private sharedErrorMessages = getErrorMessages();
 
+  // TODO: try with INPUT
+
   ngDoCheck() {
     if (!this.formCtrl) {
       return;
@@ -64,18 +66,13 @@ export class InputErrorComponent implements DoCheck {
 
   private checkErrors(): string[] {
     const errors: ValidationErrors | null = this.formCtrl!.errors;
+    console.log('check errors:', errors);
 
     const messagesList: string[] = [];
 
     for (let key in errors) {
       if (errors.hasOwnProperty(key)) {
-        if (typeof errors[key] === 'string') {
-          // Backend error (angular errors are objects of type ValidationErrors)
-          messagesList.push(errors[key]);
-        } else {
-          // Angular form error
-          messagesList.push(this.getMessageFromSharedOrCustomList(key, errors[key]));
-        }
+        messagesList.push(this.getMessageFromSharedOrCustomList(key, errors[key]));
       }
     }
 

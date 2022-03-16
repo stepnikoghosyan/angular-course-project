@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -10,6 +10,9 @@ import { AuthService } from '../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IApiErrorResponse } from '@shared/models/api-error-response.model';
 
+// dto
+import { LoginDto } from '../../models/dto/login.dto';
+
 // validators
 import { emailValidator } from '../../validators/email.validator';
 
@@ -18,29 +21,25 @@ import { emailValidator } from '../../validators/email.validator';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnDestroy {
 
   public isLoading = false;
-  public showPasswordAsText = false;
   public responseErrorMsg: string | null = null;
 
   public form: FormGroup;
 
-  private subscription: Subscription;
+  private subscription?: Subscription;
 
   constructor(
     private readonly authService: AuthService,
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
   ) {
+    this.form = this.initAndGetForm();
   }
 
-  ngOnInit(): void {
-    this.initForm();
-  }
-
-  private initForm(): void {
-    this.form = this.formBuilder.group({
+  private initAndGetForm(): FormGroup {
+    return this.formBuilder.group({
       email: ['', [Validators.required, emailValidator]],
       password: ['', [Validators.required]],
       rememberMe: [false],
@@ -61,13 +60,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.responseErrorMsg = null;
 
-    const values = this.form.value;
     this.form.disable();
 
-    this.subscription = this.authService.login({
-      email: values.email,
-      password: values.password,
-    }, values.rememberMe)
+    this.subscription = this.authService.login(new LoginDto(this.form.value), this.form.value.rememberMe)
       .subscribe({
         next: () => {
           this.router.navigate(['/home']);

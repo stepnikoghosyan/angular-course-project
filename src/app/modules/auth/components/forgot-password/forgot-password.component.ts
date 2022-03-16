@@ -1,13 +1,22 @@
 import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { emailValidator } from '../../validators/email.validator';
-import { AuthService } from '../../services/auth.service';
-import { take } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { take } from 'rxjs';
+
+// services
+import { AuthService } from '../../services/auth.service';
+import { NotificationsService } from '@shared/modules/notifications/services/notifications.service';
+
+// models
 import { IApiErrorResponse } from '@shared/models/api-error-response.model';
 import { NotificationTypes } from '@shared/modules/notifications/models/notification-types.model';
-import { NotificationsService } from '@shared/modules/notifications/services/notifications.service';
-import { Router } from '@angular/router';
+
+// dto
+import { ForgotPasswordDto } from '../../models/dto/forgot-password.dto';
+
+// validators
+import { emailValidator } from '../../validators/email.validator';
 
 @Component({
   selector: 'app-forgot-password',
@@ -15,8 +24,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./forgot-password.component.scss'],
 })
 export class ForgotPasswordComponent {
-
-
   public emailCtrl = new FormControl('', [Validators.required, emailValidator]);
 
   public isLoading = false;
@@ -41,7 +48,7 @@ export class ForgotPasswordComponent {
 
     this.isLoading = true;
 
-    this.authService.forgotPassword(this.emailCtrl.value)
+    this.authService.forgotPassword(new ForgotPasswordDto({ email: this.emailCtrl.value }))
       .pipe(take(1))
       .subscribe({
         next: () => this.handleSuccess(),

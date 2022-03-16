@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormControl, Validators } from '@angular/forms';
 import { Subject, finalize, takeUntil } from 'rxjs';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 // services
 import { CommentsService } from '../../services/comments.service';
@@ -14,13 +15,16 @@ import { IComment } from '../../models/comment.model';
 import { IApiErrorResponse } from '@shared/models/api-error-response.model';
 import { NotificationTypes } from '@shared/modules/notifications/models/notification-types.model';
 
+// dto
+import { ManageCommentDto } from '../../models/dto/manage-comment.dto';
+
 @Component({
   selector: 'app-comments-dialog',
   templateUrl: './comments-dialog.component.html',
   styleUrls: ['./comments-dialog.component.scss'],
 })
 export class CommentsDialogComponent implements OnInit, OnDestroy {
-  @Input() public post: IPost;
+  @Input() public post!: IPost;
 
   public comments: IComment[] = [];
 
@@ -39,6 +43,7 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
   private subscriptions$ = new Subject<void>();
 
   constructor(
+    public readonly activeModal: NgbActiveModal,
     private readonly commentsService: CommentsService,
     private readonly notificationsService: NotificationsService,
     private readonly appStateService: AppStateService,
@@ -47,6 +52,10 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (!this.post) {
+      this.activeModal.close();
+    }
+
     this.getCommentsForPost();
   }
 
@@ -80,13 +89,10 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // this.handleSuccess();
-    // return;
-
     this.loaders.isAddingComment = true;
     this.ctrl.disable();
 
-    this.commentsService.create(this.post.id, { message: this.ctrl.value })
+    this.commentsService.create(this.post.id, new ManageCommentDto(this.ctrl.value))
       .pipe(takeUntil(this.subscriptions$))
       .subscribe({
         next: () => this.handleSuccess(),
@@ -96,8 +102,8 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
 
   private handleSuccess(): void {
     this.ctrl.reset('');
-    this.getCommentsForPost();
     this.ctrl.enable();
+    this.getCommentsForPost();
     this.loaders.isAddingComment = false;
   }
 

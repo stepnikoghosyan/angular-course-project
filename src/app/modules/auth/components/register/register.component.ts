@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -12,6 +12,9 @@ import { NotificationsService } from '@shared/modules/notifications/services/not
 import { NotificationTypes } from '@shared/modules/notifications/models/notification-types.model';
 import { IApiErrorResponse } from '@shared/models/api-error-response.model';
 
+// dto
+import { RegisterDto } from '../../models/dto/register.dto';
+
 // validators
 import { emailValidator } from '../../validators/email.validator';
 
@@ -20,15 +23,14 @@ import { emailValidator } from '../../validators/email.validator';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnDestroy {
 
   public isLoading = false;
-  public showPasswordAsText = false;
   public responseErrorMsg: string | null = null;
 
   public form: FormGroup;
 
-  private subscription: Subscription;
+  private subscription?: Subscription;
 
   constructor(
     private readonly authService: AuthService,
@@ -36,14 +38,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
   ) {
+    this.form = this.initAndGetForm();
   }
 
-  ngOnInit(): void {
-    this.initForm();
-  }
-
-  private initForm(): void {
-    this.form = this.formBuilder.group({
+  private initAndGetForm(): FormGroup {
+    return this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, emailValidator]],
@@ -65,10 +64,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.responseErrorMsg = null;
 
-    const values = this.form.value;
     this.form.disable();
 
-    this.subscription = this.authService.register(values)
+    this.subscription = this.authService.register(new RegisterDto(this.form.value))
       .subscribe({
         next: () => {
           this.handleSuccess();
@@ -93,7 +91,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     const error = err.error as IApiErrorResponse;
     if (err.status === 409) {
-      this.form.get('email')?.setErrors({ [error.message]: error.message });
+      this.form.controls['email'].setErrors({ [error.message]: error.message });
     } else if (error.message) {
       this.responseErrorMsg = error.message;
     } else {

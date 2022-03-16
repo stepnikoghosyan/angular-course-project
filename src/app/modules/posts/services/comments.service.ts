@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 // services
 import { BaseHttpService } from '@shared/services/base-http.service';
@@ -9,9 +10,12 @@ import { BaseHttpService } from '@shared/services/base-http.service';
 import { IPaginationResponse } from '@shared/models/pagination-response.model';
 import { IComment } from '../models/comment.model';
 import { ICommentsQueryParams } from '../models/comments-query-params.model';
-import { ICreateOrUpdateCommentPayload } from '../models/payload/create-or-update-comment-payload.model';
 import { ICreateOrUpdateCommentResponse } from '../models/create-or-update-comment-response.model';
-import { map } from 'rxjs/operators';
+
+// dto
+import { ManageCommentDto } from '../models/dto/manage-comment.dto';
+
+// normalizers
 import { normalizeCommentResponse } from '../normalizers/comment-response.normalizer';
 
 @Injectable({ providedIn: 'root' })
@@ -36,12 +40,12 @@ export class CommentsService extends BaseHttpService<IComment> {
       );
   }
 
-  public create(postId: number, data: ICreateOrUpdateCommentPayload): Observable<ICreateOrUpdateCommentResponse> {
-    return this.post<ICreateOrUpdateCommentPayload, ICreateOrUpdateCommentResponse>(`${ this.URL }/${ postId }`, data);
+  public create(postId: number, data: ManageCommentDto): Observable<ICreateOrUpdateCommentResponse> {
+    return this.post<ManageCommentDto, ICreateOrUpdateCommentResponse>(`${ this.URL }/${ postId }`, data);
   }
 
-  public update(postId: number, data: ICreateOrUpdateCommentPayload): Observable<ICreateOrUpdateCommentResponse> {
-    return this.put<ICreateOrUpdateCommentPayload, ICreateOrUpdateCommentResponse>(`${ this.URL }/${ postId }`, data);
+  public update(postId: number, data: ManageCommentDto): Observable<ICreateOrUpdateCommentResponse> {
+    return this.put<ManageCommentDto, ICreateOrUpdateCommentResponse>(`${ this.URL }/${ postId }`, data);
   }
 
   public deleteComment(id: number): Observable<void> {

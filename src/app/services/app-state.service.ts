@@ -5,7 +5,7 @@ import { IUser } from '../modules/users/models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AppStateService {
-  public currentUser: IUser | null;
+  public currentUser: IUser | null = null;
 
   public clear(): void {
     this.currentUser = null;

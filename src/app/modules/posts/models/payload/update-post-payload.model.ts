@@ -1,3 +1,3 @@
-import { ICreatePostPayload } from './create-post-payload.model';
+import { CreatePostDto } from '../dto/create-post.dto';
 
-export type IUpdatePostPayload = Partial<ICreatePostPayload>;
+export type IUpdatePostPayload = Partial<CreatePostDto>;

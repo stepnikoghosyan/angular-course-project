@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  BASE_API_ENDPOINT: 'https://angular-course-1.herokuapp.com',
+  BASE_API_ENDPOINT: 'http://localhost:3001', // 'https://angular-course-1.herokuapp.com'
 };
 
 /*

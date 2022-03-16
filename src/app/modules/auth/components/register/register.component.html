@@ -9,31 +9,27 @@
   <div class="form-input-group">
     <label class="form-control-placeholder" for="firstname">First Name</label>
     <input id="firstname" formControlName="firstName" type="text" class="form-control">
-    <app-input-error [formCtrl]="form.get('firstName')"></app-input-error>
+    <app-input-error [formCtrl]="form.controls['firstName']"></app-input-error>
   </div>
 
   <!-- First Name -->
   <div class="form-input-group">
     <label class="form-control-placeholder" for="lastname">Last Name</label>
     <input id="lastname" formControlName="lastName" type="text" class="form-control">
-    <app-input-error [formCtrl]="form.get('lastName')"></app-input-error>
+    <app-input-error [formCtrl]="form.controls['lastName']"></app-input-error>
   </div>
 
   <!-- Email -->
   <div class="form-input-group">
     <label class="form-control-placeholder" for="email">Email</label>
     <input id="email" formControlName="email" type="text" class="form-control">
-    <app-input-error [formCtrl]="form.get('email')"></app-input-error>
+    <app-input-error [formCtrl]="form.controls['email']"></app-input-error>
   </div>
 
   <!-- Password -->
   <div class="form-input-group">
-    <label class="form-control-placeholder" for="password">Password</label>
-    <input id="password" formControlName="password" [type]="showPasswordAsText && 'text' || 'password'"
-           class="form-control">
-    <span (click)="showPasswordAsText = !showPasswordAsText" class="fa fa-fw field-icon field-icon-hoverable"
-          [ngClass]="showPasswordAsText && 'fa-eye' || 'fa-eye-slash'"></span>
-    <app-input-error [formCtrl]="form.get('password')"></app-input-error>
+    <app-password-field formControlName="password" label="Password"></app-password-field>
+    <app-input-error [formCtrl]="form.controls['password']"></app-input-error>
   </div>
 
   <!-- Loader -->

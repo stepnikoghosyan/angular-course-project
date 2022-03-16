@@ -1,4 +1,4 @@
-export interface IRegisterPayload {
+export interface IRegisterFormValue {
   email: string;
   password: string;
   firstName: string;

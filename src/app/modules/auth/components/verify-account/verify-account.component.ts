@@ -12,6 +12,9 @@ import { NotificationsService } from '@shared/modules/notifications/services/not
 import { IApiErrorResponse } from '@shared/models/api-error-response.model';
 import { NotificationTypes } from '@shared/modules/notifications/models/notification-types.model';
 
+// dto
+import { ResendActivationTokenDto } from '../../models/dto/resend-activation-token.dto';
+
 // validators
 import { emailValidator } from '../../validators/email.validator';
 
@@ -93,7 +96,7 @@ export class VerifyAccountComponent implements OnInit {
 
     this.state = 'Verifying Your account, please wait...';
 
-    this.authService.resendActivationToken(this.emailCtrl.value)
+    this.authService.resendActivationToken(new ResendActivationTokenDto({ email:  this.emailCtrl.value }))
       .pipe(take(1))
       .subscribe({
         next: () => {

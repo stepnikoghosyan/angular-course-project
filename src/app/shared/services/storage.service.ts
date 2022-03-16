@@ -5,7 +5,7 @@ import { ITokensResponse } from '../../modules/auth/models/tokens-response.model
 
 @Injectable({ providedIn: 'root' })
 export class StorageService {
-  private storageType: 'localStorage' | 'sessionStorage';
+  private storageType: 'localStorage' | 'sessionStorage' = 'localStorage';
 
   public setStorageType(type: 'localStorage' | 'sessionStorage'): void {
     this.storageType = type;

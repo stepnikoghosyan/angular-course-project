@@ -14,6 +14,7 @@ import { FormErrorMessagesModule } from '@shared/modules/form-error-messages/for
 import { VerifyAccountComponent } from './components/verify-account/verify-account.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { PasswordFieldComponent } from './components/password-field/password-field.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     VerifyAccountComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    PasswordFieldComponent,
   ],
   imports: [
     CommonModule,
