@@ -18,5 +18,5 @@ import { FormFieldErrorComponent } from './components/form-field-error/form-fiel
     FormFieldErrorComponent,
   ],
 })
-export class FormErrorMessagesModule {
+export class CustomForms {
 }
