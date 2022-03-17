@@ -11,7 +11,7 @@ import { PostsComponent } from './posts.component';
 import { PostsListComponent } from './components/posts-list/posts-list.component';
 import { PostCardComponent } from './components/post-card/post-card.component';
 import { PostsFilterComponent } from './components/posts-filter/posts-filter.component';
-import { CommentsDialogComponent } from './components/comments-dialog/comments-dialog.component';
+import { CommentsComponent } from './components/comments/comments.component';
 
 // directives
 import { AutoResizeTextareaDirective } from './directives/auto-resize-textarea.directive';
@@ -22,7 +22,7 @@ import { PostViewComponent } from './components/post-view/post-view.component';
     PostsComponent,
     PostsListComponent,
     PostsFilterComponent,
-    CommentsDialogComponent,
+    CommentsComponent,
     AutoResizeTextareaDirective,
     PostCardComponent,
     PostViewComponent,

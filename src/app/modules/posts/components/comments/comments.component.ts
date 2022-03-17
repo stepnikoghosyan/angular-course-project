@@ -18,11 +18,11 @@ import { NotificationTypes } from '@shared/modules/notifications/models/notifica
 import { ManageCommentDto } from '../../models/dto/manage-comment.dto';
 
 @Component({
-  selector: 'app-comments-dialog',
-  templateUrl: './comments-dialog.component.html',
-  styleUrls: ['./comments-dialog.component.scss'],
+  selector: 'app-comments',
+  templateUrl: './comments.component.html',
+  styleUrls: ['./comments.component.scss'],
 })
-export class CommentsDialogComponent implements OnInit, OnDestroy {
+export class CommentsComponent implements OnInit, OnDestroy {
   @Input() public post!: IPost;
 
   public comments: IComment[] = [];
