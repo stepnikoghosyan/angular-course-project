@@ -19,6 +19,8 @@ export class PostViewComponent implements OnInit, OnDestroy {
 
   public post?: IPost;
 
+  public readonly defaultImgPath = '/assets/img/post-image-placeholder.png';
+
   private subscriptions$ = new Subject<void>();
 
   constructor(

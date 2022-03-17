@@ -4,9 +4,15 @@
 }
 
 .post-body {
+  width: 100%;
   resize: none;
   overflow: hidden;
   border: none;
   background-color: transparent;
   padding: 0;
+}
+
+.default-img {
+  width: 150px !important;
+  height: 150px !important;
 }
