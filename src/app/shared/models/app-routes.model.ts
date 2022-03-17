@@ -7,5 +7,7 @@ export enum AppRoutes {
   VerifyAccount = 'verify-account',
   Home = 'home',
   Posts = 'posts',
+  CreatePost = 'create',
+  UpdatePost = 'edit',
   NotFound = 'not-found'
 }

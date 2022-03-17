@@ -24,7 +24,11 @@
         </span>
       </div>
 
-      <a [routerLink]="['/posts', post?.id]" class="btn btn-sm btn-outline-primary ms-3">
+      <a [routerLink]="['/', APP_ROUTES.Posts, APP_ROUTES.UpdatePost, post?.id]" class="btn btn-sm btn-outline-primary ms-3">
+        <i class="fa fa-edit"></i>
+      </a>
+
+      <a [routerLink]="['/', APP_ROUTES.Posts, post?.id]" class="btn btn-sm btn-outline-primary ms-3">
         <i class="fa fa-eye"></i>
       </a>
     </div>

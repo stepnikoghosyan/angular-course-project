@@ -17,6 +17,9 @@ import { NotificationTypes } from '@shared/modules/notifications/models/notifica
 // dto
 import { ManageCommentDto } from '../../models/dto/manage-comment.dto';
 
+// validators
+import { notOnlySpacesValidator } from '@shared/validators/not-only-spaces.validator';
+
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
@@ -30,6 +33,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   public ctrl = new FormControl('', [
     Validators.required,
     Validators.minLength(1),
+    notOnlySpacesValidator,
   ]);
 
   public loaders = {

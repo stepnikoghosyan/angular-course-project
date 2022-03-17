@@ -1,4 +1,4 @@
-import { base64ToFile } from 'ngx-image-cropper';
+import { base64ToFile } from '@shared/utils/base-64-to-file.helper';
 
 export function convertJsonToFormData(obj: any, fileFields?: string[]): FormData {
   if (!obj) {

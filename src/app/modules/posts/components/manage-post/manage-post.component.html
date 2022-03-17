@@ -1,0 +1,54 @@
+<section class="container">
+  <h4 class="text-center mb-4">{{ isEditMode && 'Update Post' || 'Create Post' }}</h4>
+
+  <form [formGroup]="form">
+    <!-- Title -->
+    <app-form-field labelFor="title" label="Title">
+      <input id="title" formControlName="title" type="text" class="form-control">
+    </app-form-field>
+
+    <!-- Body -->
+    <app-form-field labelFor="body" label="Body">
+      <textarea id="body" formControlName="body" class="form-control" rows="5">
+      </textarea>
+    </app-form-field>
+
+    <!-- Image -->
+    <div class="form-input-group file-upload">
+      <label class="upload-btn text-success">
+        <input (change)="onFileChange($event)"
+               [disabled]="isLoading"
+               accept="image/*"
+               class="form-control"
+               type="file">
+        {{ form.value.image ? 'Change File' : 'Select File' }}
+      </label>
+
+      <div *ngIf="form.value.image" class="uploaded-file-name mt-2">
+        <span>{{ form.value.image.name || 'Image' }}</span>
+        <button (click)="clearFileInput()" [disabled]="isLoading" type="button" class="btn btn-danger btn-sm ms-3 clear-uploaded-file-btn">
+          <i class="fa fa-remove"></i>
+        </button>
+      </div>
+
+      <app-form-field-error
+        [showErrors]="form.controls['image'].invalid && form.controls['image'].touched"
+        [errors]="form.controls['image'].errors"
+      ></app-form-field-error>
+    </div>
+
+    <!-- Loader -->
+    <app-spinner *ngIf="isLoading"></app-spinner>
+
+    <!-- Api error response message -->
+    <p *ngIf="responseErrorMsg" class="error-msg text-center">{{ responseErrorMsg }}</p>
+
+    <!-- Sign In button -->
+    <div class="d-flex justify-content-end mt-4">
+      <button (click)="onSubmit()" [disabled]="isLoading" type="submit"
+              class="btn btn-primary rounded px-3">
+        {{ isEditMode && 'Update' || 'Create' }}
+      </button>
+    </div>
+  </form>
+</section>

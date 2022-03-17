@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+
+// services
 import { PostsService } from '../../services/posts.service';
-import { IPost } from '../../models/post.model';
 import { NotificationsService } from '@shared/modules/notifications/services/notifications.service';
+
+// models
+import { IPost } from '../../models/post.model';
 import { AppRoutes } from '@shared/models/app-routes.model';
-import { HttpErrorResponse } from '@angular/common/http';
-import { NotificationTypes } from '@shared/modules/notifications/models/notification-types.model';
 
 @Component({
   selector: 'app-post-view',
@@ -48,24 +50,7 @@ export class PostViewComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.subscriptions$))
       .subscribe({
         next: (response) => {
-          console.log('response:', response);
           this.post = response;
-        },
-        error: (err: HttpErrorResponse) => {
-          let message: string;
-
-          if (err.status === 404) {
-            message = 'Post you\'re looking for doesn\'t exist!';
-          } else {
-            message = 'Unknown error occurred';
-          }
-
-          this.notificationsService.showNotification({
-            type: NotificationTypes.ERROR,
-            title: 'Error',
-            message,
-          });
-          this.router.navigate([AppRoutes.Posts]);
         },
       });
   }

@@ -59,7 +59,7 @@ export class FormFieldErrorComponent implements OnChanges {
     const thereAreCustomMessages = typeof this.additionalErrorMessages === 'object' && this.additionalErrorMessages !== null && this.additionalErrorMessages.hasOwnProperty(errorKey);
 
     if (thereAreCustomMessages) {
-      return this.getMessage(errorKey, error, this.additionalErrorMessages);
+      return this.getMessage(errorKey, error, this.additionalErrorMessages!);
     } else if (this.sharedErrorMessages[errorKey]) {
       return this.getMessage(errorKey, error, this.sharedErrorMessages);
     }
@@ -67,13 +67,15 @@ export class FormFieldErrorComponent implements OnChanges {
     return errorKey;
   }
 
-  private getMessage(errorKey: string, error: ValidationErrors | boolean, errors: any): string {
-    if (typeof errors[errorKey] === 'string') {
+  private getMessage(errorKey: string, error: ValidationErrors | boolean, errorsMessages: { [key: string]: any }): string {
+    if (typeof errorsMessages[errorKey] === 'string') {
+      console.log('is static');
       // Static error message
-      return errors[errorKey];
-    } else if (typeof errors[errorKey] === 'function') {
+      return errorsMessages[errorKey];
+    } else if (typeof errorsMessages[errorKey] === 'function') {
       // Dynamic error message
-      return errors[errorKey](error);
+      console.log('is dynamic:', error);
+      return errorsMessages[errorKey](error);
     }
 
     return errorKey;

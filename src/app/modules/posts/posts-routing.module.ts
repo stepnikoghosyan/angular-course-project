@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 // components
 import { PostsListComponent } from './components/posts-list/posts-list.component';
 import { PostViewComponent } from './components/post-view/post-view.component';
+import { ManagePostComponent } from './components/manage-post/manage-post.component';
 
 const routes: Routes = [
   {
@@ -11,9 +12,17 @@ const routes: Routes = [
     component: PostsListComponent,
   },
   {
+    path: 'create',
+    component: ManagePostComponent,
+  },
+  {
+    path: 'edit/:id',
+    component: ManagePostComponent,
+  },
+  {
     path: ':id',
     component: PostViewComponent,
-  }
+  },
 ];
 
 @NgModule({
