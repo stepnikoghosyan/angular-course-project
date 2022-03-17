@@ -50,7 +50,7 @@ export class ManagePostComponent implements OnInit, OnDestroy {
       id: [null],
       title: ['', [Validators.required, notOnlySpacesValidator]],
       body: ['', [Validators.required, notOnlySpacesValidator]],
-      image: [null, [imageMimeTypeValidator(), fileSizeValidator()]],
+      image: [null, [imageMimeTypeValidator(['jpg', 'jpeg', 'png']), fileSizeValidator()]],
     });
   }
 

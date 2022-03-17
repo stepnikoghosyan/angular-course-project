@@ -74,7 +74,6 @@ export class FormFieldErrorComponent implements OnChanges {
       return errorsMessages[errorKey];
     } else if (typeof errorsMessages[errorKey] === 'function') {
       // Dynamic error message
-      console.log('is dynamic:', error);
       return errorsMessages[errorKey](error);
     }
 
