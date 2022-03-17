@@ -42,6 +42,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   };
 
   public currentUserId: number | null = null;
+  public currentUserProfilePicture: string | undefined;
 
   private subscriptions$ = new Subject<void>();
 
@@ -51,6 +52,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
     private readonly appStateService: AppStateService,
   ) {
     this.currentUserId = this.appStateService.currentUser!.id;
+    this.currentUserProfilePicture = this.appStateService.currentUser!.profilePictureUrl || '/assets/img/avatar-placeholder.png';
   }
 
   ngOnInit(): void {
