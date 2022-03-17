@@ -19,7 +19,7 @@
   </div>
 
   <div class="mt-4" style="font-size: 1.1rem">
-    {{ post.body }}
+    <textarea autoResizeTextarea disabled class="post-body">{{ post.body }}</textarea>
   </div>
 
   <app-comments [post]="post"></app-comments>

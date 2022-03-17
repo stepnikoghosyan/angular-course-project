@@ -18,13 +18,11 @@ export class AutoResizeTextareaDirective implements DoCheck, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.realtime) {
-      this.updateHeight();
-    }
+    this.updateHeight();
   }
 
   private updateHeight(): void {
     this.elRef.nativeElement.style.height = 'auto';
-    this.elRef.nativeElement.style.height = this.elRef.nativeElement.scrollHeight + 'px';
+    this.elRef.nativeElement.style.height = this.elRef.nativeElement.scrollHeight + 5 + 'px';
   }
 }
