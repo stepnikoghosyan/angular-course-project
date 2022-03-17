@@ -7,6 +7,7 @@ import { LayoutModule } from '@shared/modules/layout/layout.module';
 
 // components
 import { HomeComponent } from './home.component';
+import { PostsListModule } from '@shared/modules/posts-list/posts-list.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { HomeComponent } from './home.component';
     CommonModule,
     HomeRoutingModule,
     LayoutModule,
+    PostsListModule,
   ],
 })
 export class HomeModule {

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 // models
-import { IPost } from '../../models/post.model';
+import { IPost } from '../../../../../modules/posts/models/post.model';
 import { AppRoutes } from '@shared/models/app-routes.model';
 
 @Component({

@@ -1,0 +1,28 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+// modules
+import { LoadersModule } from '@shared/modules/loaders/loaders.module';
+
+// components
+import { PostsListComponent } from '@shared/modules/posts-list/components/posts-list/posts-list.component';
+import { PostCardComponent } from '@shared/modules/posts-list/components/post-card/post-card.component';
+
+@NgModule({
+  declarations: [
+    PostsListComponent,
+    PostCardComponent,
+  ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    LoadersModule,
+  ],
+  exports: [
+    PostsListComponent,
+    PostCardComponent,
+  ],
+})
+export class PostsListModule {
+}

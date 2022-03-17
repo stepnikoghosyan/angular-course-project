@@ -9,8 +9,6 @@ import { CustomForms } from '@shared/modules/form-error-messages/custom-forms.mo
 
 // components
 import { PostsComponent } from './posts.component';
-import { PostsListComponent } from './components/posts-list/posts-list.component';
-import { PostCardComponent } from './components/post-card/post-card.component';
 import { PostsFilterComponent } from './components/posts-filter/posts-filter.component';
 import { PostViewComponent } from './components/post-view/post-view.component';
 import { ManagePostComponent } from './components/manage-post/manage-post.component';
@@ -18,15 +16,14 @@ import { CommentsComponent } from './components/comments/comments.component';
 
 // directives
 import { AutoResizeTextareaDirective } from './directives/auto-resize-textarea.directive';
+import { PostsListModule } from '@shared/modules/posts-list/posts-list.module';
 
 @NgModule({
   declarations: [
     PostsComponent,
-    PostsListComponent,
     PostsFilterComponent,
     CommentsComponent,
     AutoResizeTextareaDirective,
-    PostCardComponent,
     PostViewComponent,
     ManagePostComponent,
   ],
@@ -36,6 +33,7 @@ import { AutoResizeTextareaDirective } from './directives/auto-resize-textarea.d
     PostsRoutingModule,
     LoadersModule,
     CustomForms,
+    PostsListModule,
   ],
 })
 export class PostsModule {

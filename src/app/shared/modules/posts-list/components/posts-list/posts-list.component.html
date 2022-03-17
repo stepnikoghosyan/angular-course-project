@@ -1,11 +1,6 @@
-<h1 class="text-center">Posts</h1>
-
 <app-spinner *ngIf="isLoading"></app-spinner>
 
-<app-posts-filter></app-posts-filter>
-
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4 mb-5">
-
   <div *ngFor="let post of posts" class="col">
     <app-post-card [post]="post"></app-post-card>
   </div>

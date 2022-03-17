@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // components
-import { PostsListComponent } from './components/posts-list/posts-list.component';
+import { PostsComponent } from './posts.component';
 import { PostViewComponent } from './components/post-view/post-view.component';
 import { ManagePostComponent } from './components/manage-post/manage-post.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: PostsListComponent,
+    component: PostsComponent,
   },
   {
     path: 'create',
