@@ -8,7 +8,11 @@ import { NotAuthGuard } from './guards/not-auth.guard';
 // components
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LayoutComponent } from '@shared/modules/layout/components/layout/layout.component';
+
+// models
 import { AppRoutes } from '@shared/models/app-routes.model';
+
+// helpers
 import { getFullRoute } from '@shared/utils/get-full-route.helper';
 
 const routes: Routes = [
@@ -36,6 +40,10 @@ const routes: Routes = [
       {
         path: AppRoutes.Posts,
         loadChildren: () => import('./modules/posts/posts.module').then(m => m.PostsModule),
+      },
+      {
+        path: AppRoutes.Profile,
+        loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule),
       },
       {
         path: AppRoutes.NotFound,

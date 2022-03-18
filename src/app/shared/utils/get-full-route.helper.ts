@@ -9,7 +9,5 @@ export function getFullRoute(route: AppRoutes): string {
     [AppRoutes.UpdatePost]: `${ AppRoutes.Posts }/${ AppRoutes.UpdatePost }`,
   };
 
-  console.log(config[route] || route);
-
-  return config[route] && `/${ config[route] }` || route;
+  return `/${ config[route] || route }`;
 }

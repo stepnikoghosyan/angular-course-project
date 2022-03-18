@@ -17,6 +17,7 @@ import { RegisterDto } from '../../models/dto/register.dto';
 
 // validators
 import { emailValidator } from '../../validators/email.validator';
+import { notOnlySpacesValidator } from '@shared/validators/not-only-spaces.validator';
 
 @Component({
   selector: 'app-register',
@@ -43,8 +44,8 @@ export class RegisterComponent implements OnDestroy {
 
   private initAndGetForm(): FormGroup {
     return this.formBuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
+      firstName: ['', [Validators.required, notOnlySpacesValidator]],
+      lastName: ['', [Validators.required, notOnlySpacesValidator]],
       email: ['', [Validators.required, emailValidator]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });

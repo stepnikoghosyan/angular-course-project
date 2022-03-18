@@ -22,5 +22,11 @@ export function getErrorMessages(): { [key: string]: any } {
 
       return `Maximum allowed file size is ${ maxAllowedSizeInMb }MB, selected image is ${ actualSizeInMb }MB`;
     },
+    mustMatch: (error: ValidationErrors): string => {
+      const sourceLabel = error['sourceControl']['label'];
+      const matchingLabel = error['matchingControl']['label'];
+
+      return `${ sourceLabel } and ${ matchingLabel } should be same`;
+    },
   };
 }

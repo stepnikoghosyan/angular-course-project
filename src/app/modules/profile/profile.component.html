@@ -1,0 +1,99 @@
+<div class="row justify-content-center pb-5">
+  <section class="col-12 col-sm-10" style="max-width: 600px">
+    <h4 class="text-center mb-4">Profile Settings</h4>
+
+    <form [formGroup]="form">
+      <!-- Image -->
+      <div class="d-flex justify-content-center">
+        <div class="profile-picture-container">
+          <div class="img-container">
+            <img
+              fileOrStringToImgSrc
+              [imageSource]="form.controls['image'].value"
+              src="" alt="Profile Picture" class="rounded-circle"/>
+          </div>
+
+          <input #fileInput
+                 (change)="onFileChange($event)"
+                 [disabled]="isLoading"
+                 accept="image/*"
+                 class="change-profile-picture-file-input"
+                 type="file">
+
+          <div class="d-flex justify-content-around align-self-center mt-1">
+            <button (click)="fileInput.click()" class="btn btn-secondary rounded-circle btn-sm bg-opacity-75 bg-success border-0" type="button">
+              <i class="fa fa-edit"></i>
+            </button>
+
+            <button (click)="clearFileInput()" [disabled]="!form.value.image" class="btn btn-secondary rounded-circle btn-sm bg-opacity-75 bg-danger border-0" type="button">
+              <i class="fa fa-remove"></i>
+            </button>
+          </div>
+        </div>
+
+<!--        <div class="form-input-group file-upload">-->
+<!--          <label class="upload-btn text-success">-->
+<!--            <input #asd (change)="onFileChange($event)"-->
+<!--                   [disabled]="isLoading"-->
+<!--                   accept="image/*"-->
+<!--                   class="form-control"-->
+<!--                   type="file">-->
+<!--            {{ form.value.image ? 'Change File' : 'Select File' }}-->
+<!--          </label>-->
+
+<!--          <div *ngIf="form.value.image" class="uploaded-file-name mt-2">-->
+<!--            <span>{{ form.value.image.name || 'Image' }}</span>-->
+<!--            <button (click)="clearFileInput()" [disabled]="isLoading" type="button"-->
+<!--                    class="btn btn-danger btn-sm ms-3 clear-uploaded-file-btn">-->
+<!--              <i class="fa fa-remove"></i>-->
+<!--            </button>-->
+<!--          </div>-->
+
+<!--          <app-form-field-error-->
+<!--            [showErrors]="form.controls['image'].invalid && form.controls['image'].touched"-->
+<!--            [errors]="form.controls['image'].errors"-->
+<!--          ></app-form-field-error>-->
+<!--        </div>-->
+      </div>
+
+      <!-- First Name -->
+      <app-form-field labelFor="firstName" label="First Name">
+        <input id="firstName" formControlName="firstName" type="text" class="form-control">
+      </app-form-field>
+
+      <!-- Last Name -->
+      <app-form-field labelFor="lastName" label="Last Name">
+        <input id="lastName" formControlName="lastName" type="text" class="form-control">
+      </app-form-field>
+
+      <!-- Email -->
+      <app-form-field labelFor="email" label="Email">
+        <input id="title" formControlName="email" type="text" class="form-control">
+      </app-form-field>
+
+      <!-- Password -->
+      <app-form-field labelFor="password" label="Password">
+        <app-password-field formControlName="password"></app-password-field>
+      </app-form-field>
+
+      <!-- Confirm Password -->
+      <app-form-field labelFor="confirmPassword" label="Confirm Password">
+        <app-password-field formControlName="confirmPassword" inputId="confirmPassword"></app-password-field>
+      </app-form-field>
+
+      <!-- Loader -->
+      <app-spinner *ngIf="isLoading"></app-spinner>
+
+      <!-- Api error response message -->
+      <p *ngIf="responseErrorMsg" class="error-msg text-center">{{ responseErrorMsg }}</p>
+
+      <!-- Save button -->
+      <div class="d-flex justify-content-end mt-4">
+        <button (click)="onSubmit()" [disabled]="isLoading" type="submit"
+                class="btn btn-primary rounded px-3">
+          Save
+        </button>
+      </div>
+    </form>
+  </section>
+</div>

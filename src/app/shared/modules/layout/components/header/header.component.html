@@ -22,10 +22,14 @@
         </a>
         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
           <li>
-            <a class="dropdown-item" routerLink="/posts">My Posts</a>
+            <a class="dropdown-item"
+               [routerLink]="routes.myPosts"
+               [queryParams]="{ userId: appStateService.currentUser?.id }">
+              My Posts
+            </a>
           </li>
           <li>
-            <a class="dropdown-item" routerLink="/profile">Profile</a>
+            <a class="dropdown-item" [routerLink]="routes.profile">Profile</a>
           </li>
 
           <li>

@@ -1,0 +1,29 @@
+.profile-picture-container {
+  position: relative;
+}
+
+//.profile-picture-container button {
+//  position: absolute;
+//  right: 20px;
+//  bottom: 13px;
+//  background: rgba(35, 35, 35, 0.4);
+//  color: #ffffff !important;
+//}
+
+.img-container {
+  max-width: 128px;
+}
+
+.img-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.change-profile-picture-file-input {
+  visibility: hidden;
+  font-size: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

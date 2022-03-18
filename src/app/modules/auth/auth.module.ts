@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoadersModule } from '@shared/modules/loaders/loaders.module';
 import { CustomForms } from '@shared/modules/form-error-messages/custom-forms.module';
+import { PasswordFormFieldModule } from '@shared/modules/password-field/password-form-field.module';
 
 // components
 import { AuthComponent } from './auth.component';
@@ -14,7 +15,6 @@ import { RegisterComponent } from './components/register/register.component';
 import { VerifyAccountComponent } from './components/verify-account/verify-account.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { PasswordFieldComponent } from './components/password-field/password-field.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,6 @@ import { PasswordFieldComponent } from './components/password-field/password-fie
     VerifyAccountComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    PasswordFieldComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +32,7 @@ import { PasswordFieldComponent } from './components/password-field/password-fie
     ReactiveFormsModule,
     CustomForms,
     LoadersModule,
+    PasswordFormFieldModule,
   ],
 })
 export class AuthModule {

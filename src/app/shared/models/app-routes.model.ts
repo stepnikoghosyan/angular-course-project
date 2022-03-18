@@ -9,5 +9,6 @@ export enum AppRoutes {
   Posts = 'posts',
   CreatePost = 'create',
   UpdatePost = 'edit',
-  NotFound = 'not-found'
+  Profile = 'profile',
+  NotFound = 'not-found',
 }
