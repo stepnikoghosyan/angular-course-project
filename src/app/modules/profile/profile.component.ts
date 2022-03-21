@@ -47,11 +47,8 @@ export class ProfileComponent {
     }
   }
 
-  public clearFileInput(): void {
-    // TODO:
-    // 1. select an image
-    // 2. clear that image
-    // 3. select that image again ==> Won't select anymore
+  public clearFileInput(fileInput: HTMLInputElement): void {
+    fileInput.value = '';
     this.form.controls['image'].setValue(null);
   }
 

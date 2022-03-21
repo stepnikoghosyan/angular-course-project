@@ -15,6 +15,7 @@
 
           <input #fileInput
                  (change)="onFileChange($event)"
+                 (click)="clearFileInput(fileInput)"
                  [disabled]="isLoading"
                  accept="image/*"
                  class="change-profile-picture-file-input"
@@ -25,35 +26,11 @@
               <i class="fa fa-edit"></i>
             </button>
 
-            <button (click)="clearFileInput()" [disabled]="!form.value.image" class="btn btn-secondary rounded-circle btn-sm bg-opacity-75 bg-danger border-0" type="button">
+            <button (click)="clearFileInput(fileInput)" [disabled]="!form.value.image" class="btn btn-secondary rounded-circle btn-sm bg-opacity-75 bg-danger border-0" type="button">
               <i class="fa fa-remove"></i>
             </button>
           </div>
         </div>
-
-<!--        <div class="form-input-group file-upload">-->
-<!--          <label class="upload-btn text-success">-->
-<!--            <input #asd (change)="onFileChange($event)"-->
-<!--                   [disabled]="isLoading"-->
-<!--                   accept="image/*"-->
-<!--                   class="form-control"-->
-<!--                   type="file">-->
-<!--            {{ form.value.image ? 'Change File' : 'Select File' }}-->
-<!--          </label>-->
-
-<!--          <div *ngIf="form.value.image" class="uploaded-file-name mt-2">-->
-<!--            <span>{{ form.value.image.name || 'Image' }}</span>-->
-<!--            <button (click)="clearFileInput()" [disabled]="isLoading" type="button"-->
-<!--                    class="btn btn-danger btn-sm ms-3 clear-uploaded-file-btn">-->
-<!--              <i class="fa fa-remove"></i>-->
-<!--            </button>-->
-<!--          </div>-->
-
-<!--          <app-form-field-error-->
-<!--            [showErrors]="form.controls['image'].invalid && form.controls['image'].touched"-->
-<!--            [errors]="form.controls['image'].errors"-->
-<!--          ></app-form-field-error>-->
-<!--        </div>-->
       </div>
 
       <!-- First Name -->

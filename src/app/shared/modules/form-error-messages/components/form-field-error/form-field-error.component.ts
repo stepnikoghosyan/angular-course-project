@@ -69,7 +69,6 @@ export class FormFieldErrorComponent implements OnChanges {
 
   private getMessage(errorKey: string, error: ValidationErrors | boolean, errorsMessages: { [key: string]: any }): string {
     if (typeof errorsMessages[errorKey] === 'string') {
-      console.log('is static');
       // Static error message
       return errorsMessages[errorKey];
     } else if (typeof errorsMessages[errorKey] === 'function') {
