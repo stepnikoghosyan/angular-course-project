@@ -10,9 +10,7 @@ export function anyToHttpParams(obj?: IQueryParams): HttpParams {
 
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
-      const arrayKey = `${key}[]`;
-
-      // Array is sent to API like this: propertyName[]=value1&propertyName[]=value2&propertyName[]=value3
+      // Array is sent to API like this: propertyName1=value1&propertyName1=value2&propertyName1=value3
       // If array is empty => remove it from query params
       // If array item is null or undefined => remove it from array
       if (obj[key] && Array.isArray(obj[key])) {
@@ -22,10 +20,10 @@ export function anyToHttpParams(obj?: IQueryParams): HttpParams {
           return param;
         }
 
-        param = param.set(arrayKey, obj[key][0]);
+        param = param.set(key, obj[key][0]);
 
         for (let i = 1; i < arrayNotNullValues.length; i++) {
-          param = param.append(arrayKey, arrayNotNullValues[i]);
+          param = param.append(key, arrayNotNullValues[i]);
         }
       } else if (obj[key]) {
         param = param.set(key, obj[key] as string);
