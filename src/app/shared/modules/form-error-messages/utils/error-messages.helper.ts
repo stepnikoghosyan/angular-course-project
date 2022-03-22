@@ -6,7 +6,6 @@ export function getErrorMessages(): { [key: string]: any } {
     email: 'Invalid email',
     onlySpaces: 'Input cannot contain only spaces',
     minlength: (error: ValidationErrors): string => {
-      console.log('error:', error);
       return `Please enter at least ${ error['requiredLength'] } characters.`;
     },
     imageMimeType: (error: ValidationErrors): string => {

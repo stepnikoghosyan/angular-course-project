@@ -51,12 +51,19 @@ export class CommentsComponent implements OnInit, OnDestroy {
     private readonly notificationsService: NotificationsService,
     private readonly appStateService: AppStateService,
   ) {
-    this.currentUserId = this.appStateService.currentUser!.id;
-    this.currentUserProfilePicture = this.appStateService.currentUser!.profilePictureUrl || '/assets/img/avatar-placeholder.png';
   }
 
   ngOnInit(): void {
     this.getCommentsForPost();
+
+    this.appStateService.getCurrentUser()
+      .pipe(takeUntil(this.subscriptions$))
+      .subscribe({
+        next: (val) => {
+          this.currentUserId = val!.id;
+          this.currentUserProfilePicture = val!.profilePictureUrl || '/assets/img/avatar-placeholder.png';
+        },
+      })
   }
 
   private getCommentsForPost(): void {

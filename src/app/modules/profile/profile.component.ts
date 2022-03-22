@@ -1,5 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { finalize, Subject, takeUntil } from 'rxjs';
+
+// services
+import { UsersService } from '../users/services/users.service';
+import { NotificationsService } from '@shared/modules/notifications/services/notifications.service';
 
 // validators
 import { imageMimeTypeValidator } from '../posts/validators/image-mime-type.validator';
@@ -8,21 +14,53 @@ import { notOnlySpacesValidator } from '@shared/validators/not-only-spaces.valid
 import { emailValidator } from '../auth/validators/email.validator';
 import { mustMatchValidator } from './validators/must-match.validator';
 
+// models
+import { NotificationTypes } from '@shared/modules/notifications/models/notification-types.model';
+import { IApiErrorResponse } from '@shared/models/api-error-response.model';
+
+// dto
+import { UpdateUserDto } from '../users/models/dto/update-user.dto';
+
 @Component({
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit, OnDestroy {
   public form: FormGroup;
 
-  public isLoading = false;
+  public isLoading = true;
 
   public responseErrorMsg: string | null = null;
 
+  private subscriptions$ = new Subject<void>();
+
   constructor(
+    private readonly usersService: UsersService,
+    private readonly notificationsService: NotificationsService,
     private readonly formBuilder: FormBuilder,
   ) {
     this.form = this.initAndGetForm();
+  }
+
+  ngOnInit() {
+    this.getDataAndPatchForm();
+  }
+
+  private getDataAndPatchForm(): void {
+    this.usersService.getCurrentUser()
+      .pipe(takeUntil(this.subscriptions$))
+      .subscribe({
+        next: (response) => {
+          this.form.patchValue({
+            image: response.profilePictureUrl,
+            firstName: response.firstName,
+            lastName: response.lastName,
+            email: response.email,
+          });
+
+          this.isLoading = false;
+        },
+      });
   }
 
   private initAndGetForm(): FormGroup {
@@ -53,6 +91,46 @@ export class ProfileComponent {
   }
 
   public onSubmit(): void {
-    console.log(this.form.controls);
+    if (this.isLoading) {
+      return;
+    }
+
+    this.form.markAllAsTouched();
+
+    if (!this.form.valid) {
+      return;
+    }
+
+    this.isLoading = true;
+
+    this.usersService.updateUser(new UpdateUserDto(this.form.value))
+      .pipe(
+        finalize(() => this.isLoading = false),
+        takeUntil(this.subscriptions$),
+      )
+      .subscribe({
+        next: () => {
+          this.notificationsService.showNotification({
+            type: NotificationTypes.SUCCESS,
+            title: 'Success',
+            message: 'Profile data updated',
+          });
+
+          this.form.patchValue({
+            password: '',
+            confirmPassword: '',
+          });
+
+          this.form.markAsUntouched();
+        },
+        error: (err: HttpErrorResponse) => {
+          this.responseErrorMsg = (err.error as IApiErrorResponse).message || 'Unknown error occurred';
+        },
+      });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions$.next();
+    this.subscriptions$.complete();
   }
 }

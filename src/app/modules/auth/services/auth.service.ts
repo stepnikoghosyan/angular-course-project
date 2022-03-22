@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, switchMap, take, tap } from 'rxjs';
+import { Observable, switchMap, tap } from 'rxjs';
 
 // services
 import { BaseHttpService } from '@shared/services/base-http.service';
@@ -76,30 +76,6 @@ export class AuthService extends BaseHttpService<any> {
 
   public get isAuthenticated(): boolean {
     return !!this.storageService.getAccessToken();
-  }
-
-  public initAppAndCheckCurrentLoggedInUser(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      if (!this.isAuthenticated) {
-        resolve();
-        return;
-      }
-
-      this.usersService.getCurrentUser()
-        .pipe(take(1))
-        .subscribe({
-          next: () => {
-            resolve();
-          },
-          error: (err: HttpErrorResponse) => {
-            if (err.status === 401) {
-              resolve();
-            } else {
-              reject(err);
-            }
-          },
-        });
-    });
   }
 
   public logout(): void {

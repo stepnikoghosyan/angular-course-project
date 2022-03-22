@@ -24,7 +24,7 @@
           <li>
             <a class="dropdown-item"
                [routerLink]="routes.myPosts"
-               [queryParams]="{ userId: appStateService.currentUser?.id }">
+               [queryParams]="{ userId: currentUserId }">
               My Posts
             </a>
           </li>

@@ -11,12 +11,14 @@ import { NotificationsService } from '@shared/modules/notifications/services/not
 // models
 import { IApiErrorResponse } from '@shared/models/api-error-response.model';
 import { NotificationTypes } from '@shared/modules/notifications/models/notification-types.model';
+import { AppRoutes } from '@shared/models/app-routes.model';
 
 // dto
 import { ForgotPasswordDto } from '../../models/dto/forgot-password.dto';
 
 // validators
 import { emailValidator } from '../../validators/email.validator';
+import { getFullRoute } from '@shared/utils/get-full-route.helper';
 
 @Component({
   selector: 'app-forgot-password',
@@ -63,7 +65,7 @@ export class ForgotPasswordComponent {
       message: 'An email was sent to Your email address for password reset',
     });
 
-    this.router.navigate(['/auth/login']);
+    this.router.navigate([getFullRoute(AppRoutes.Login)]);
   }
 
   private handleError(error: HttpErrorResponse): void {

@@ -4,6 +4,8 @@ import { CanActivate, CanLoad, Router } from '@angular/router';
 // services
 import { AuthService } from '../modules/auth/services/auth.service';
 import { AppStateService } from '../services/app-state.service';
+import { getFullRoute } from '@shared/utils/get-full-route.helper';
+import { AppRoutes } from '@shared/models/app-routes.model';
 
 @Injectable({ providedIn: 'root' })
 export class NotAuthGuard implements CanLoad, CanActivate {
@@ -23,8 +25,8 @@ export class NotAuthGuard implements CanLoad, CanActivate {
   }
 
   private isNotAuthenticated(): boolean {
-    if (this.authService.isAuthenticated || !!this.appStateService.currentUser) {
-      this.router.navigate(['/home']);
+    if (this.authService.isAuthenticated) {
+      this.router.navigate([getFullRoute(AppRoutes.Home)]);
       return false;
     }
 

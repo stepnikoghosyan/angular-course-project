@@ -2,22 +2,14 @@
   position: relative;
 }
 
-//.profile-picture-container button {
-//  position: absolute;
-//  right: 20px;
-//  bottom: 13px;
-//  background: rgba(35, 35, 35, 0.4);
-//  color: #ffffff !important;
-//}
-
-.img-container {
-  max-width: 128px;
+.profile-picture-container button:hover {
+  transition: .3s;
+  opacity: 0.8;
 }
 
-.img-container img {
-  display: block;
-  width: 100%;
-  height: auto;
+.img-container {
+  width: 128px;
+  height: 128px;
 }
 
 .change-profile-picture-file-input {
