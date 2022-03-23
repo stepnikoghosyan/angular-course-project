@@ -4,4 +4,7 @@
   <div *ngFor="let post of posts" class="col">
     <app-post-card [post]="post"></app-post-card>
   </div>
+
 </div>
+
+<p *ngIf="!isLoading && !posts.length" class="text-secondary text-center">No Data</p>

@@ -9,6 +9,8 @@ import { AppStateService } from '../../../services/app-state.service';
 
 // models
 import { IUser } from '../models/user.model';
+import { IQueryParams } from '@shared/models/query-params.model';
+import { IPaginationResponse } from '@shared/models/pagination-response.model';
 
 // dto
 import { UpdateUserDto } from '../models/dto/update-user.dto';
@@ -33,6 +35,16 @@ export class UsersService extends BaseHttpService<IUser> {
       .pipe(
         tap(response => this.appStateService.setCurrentUser(response)),
         map(res => normalizeUserResponse(res)),
+      );
+  }
+
+  public getUsers(params?: IQueryParams): Observable<IPaginationResponse<IUser>> {
+    return this.getByPagination<IUser>(this.URL, params)
+      .pipe(
+        map(res => ({
+          count: res.count,
+          results: res.results.map(item => normalizeUserResponse(item)),
+        })),
       );
   }
 

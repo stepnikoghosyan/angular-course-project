@@ -2,4 +2,4 @@
 
 <p class="text-center text-secondary">Review some of the latest posts in our platform</p>
 
-<app-posts-list [staticSizeConfig]="{ page: 1, pageSize: 20 }"></app-posts-list>
+<app-posts-list [queryParams]="{ page: 1, pageSize: 20 }" [listenForQueryParamsChange]="false"></app-posts-list>

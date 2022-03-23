@@ -1,11 +1,35 @@
 <section class="row p-3 mt-4">
   <div
     class="d-flex flex-wrap justify-content-center flex-column justify-content-md-between flex-md-row align-items-md-center">
-<!--    <div class="mt-2 mt-md-0 flex-grow-1 flex-md-grow-0">-->
-<!--      <input class="col-12" type="text" placeholder="Search">-->
-<!--    </div>-->
+    <div class="d-flex flex-wrap align-items-center">
+      <!-- Search by name -->
+      <div class="m-2 flex-grow-1 flex-md-grow-0 position-relative">
+        <app-search
+          [value]="queryParams.title"
+          (onSearch)="onTitleSearch($event)"
+          placeholder="Search By Title">
+        </app-search>
+      </div>
 
-    <div class="mt-4 mt-md-0 flex-grow-1 flex-md-grow-0 ms-md-auto">  <!-- TODO: delete ms-md-auto after uncommenting search filter -->
+      <!-- Search By User -->
+      <div class="m-2 flex-grow-1 flex-md-grow-0" style="width: 206px; max-width: 100%;">
+        <ng-select
+          [items]="usersList"
+          bindLabel="fullName"
+          bindValue="id"
+          [(ngModel)]="queryParams.userID"
+          (ngModelChange)="onUserSelect($event)"
+          [loading]="!usersList"
+          [clearable]="true"
+          [searchable]="true"
+          notFoundText="No data"
+          placeholder="Search By Author"
+          appendTo="body">
+        </ng-select>
+      </div>
+    </div>
+
+    <div class="mt-4 mt-md-0 flex-grow-1 flex-md-grow-0">
       <a [routerLink]="createPostRoute" class="btn btn-primary col-12">Create Post</a>
     </div>
   </div>

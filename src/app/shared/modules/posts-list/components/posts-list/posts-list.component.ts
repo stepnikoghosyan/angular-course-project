@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Subject, takeUntil } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { finalize, Subject, takeUntil } from 'rxjs';
 
 // services
 import { PostsService } from '../../../../../modules/posts/services/posts.service';
@@ -19,40 +20,44 @@ import { IPostsQueryParams } from '../../../../../modules/posts/models/posts-que
 })
 export class PostsListComponent implements OnInit, OnDestroy {
 
-  @Input() public staticSizeConfig?: IPostsQueryParams;
+  @Input() public queryParams: IPostsQueryParams = {
+    showAll: true,
+  };
+
+  @Input() public listenForQueryParamsChange = true;
 
   public isLoading = true;
   public posts: IPost[] = [];
-
-  public queryParams: IPostsQueryParams = {
-    page: 1,
-    pageSize: 10,
-    showAll: false,
-  };
 
   private subscriptions$ = new Subject<void>();
 
   constructor(
     private readonly postsService: PostsService,
     private readonly notificationsService: NotificationsService,
+    private readonly route: ActivatedRoute,
   ) {
   }
 
   ngOnInit(): void {
-    if (!!this.staticSizeConfig) {
-      this.queryParams = this.staticSizeConfig;
+    if (this.listenForQueryParamsChange) {
+      this.subscribeToQueryParams();
+    } else {
+      this.getPosts();
     }
-
-    this.getPosts();
   }
 
   private getPosts(): void {
+    this.isLoading = true;
+    this.posts = [];
+
     this.postsService.getPosts(this.queryParams)
-      .pipe(takeUntil(this.subscriptions$))
+      .pipe(
+        finalize(() => this.isLoading = false),
+        takeUntil(this.subscriptions$),
+      )
       .subscribe({
         next: (res) => {
           this.posts = res.results;
-          this.isLoading = false;
         },
         error: (err: HttpErrorResponse) => {
           const message = (err.error as IApiErrorResponse).error || 'Unknown Error Occurred';
@@ -60,6 +65,25 @@ export class PostsListComponent implements OnInit, OnDestroy {
             type: NotificationTypes.ERROR,
             message,
           });
+        },
+      });
+  }
+
+  private subscribeToQueryParams(): void {
+    this.route.queryParamMap
+      .pipe(takeUntil(this.subscriptions$))
+      .subscribe({
+        next: (value) => {
+          this.queryParams = {
+            userID: value.has('userID') && +value.get('userID')! || undefined,
+            title: value.get('title') || undefined,
+            // page: value.has('page') && +value.get('page')! || undefined, // TODO: for later pagination
+            // pageSize: value.has('pageSize') && +value.get('pageSize')! || undefined, // TODO: for later pagination
+            // showAll: value.has('showAll') && value.get('showAll') === 'true', // TODO: for later pagination
+            showAll: true,
+          };
+
+          this.getPosts();
         },
       });
   }

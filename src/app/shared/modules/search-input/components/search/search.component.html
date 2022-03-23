@@ -1,0 +1,18 @@
+<div class="input-group">
+  <input
+    #input
+    [value]="value || ''"
+    [placeholder]="placeholder"
+    (keyup.enter)="enterPressedOrSearchBtnClicked$.next(input.value)"
+    class="col-12 form-control border-end-0 border"
+    type="text"
+  />
+
+  <button
+    #button
+    (click)="enterPressedOrSearchBtnClicked$.next(input.value)"
+    class="btn btn-outline-secondary search-input-btn border-start-0 border" type="button"
+  >
+    <i class="fa fa-search"></i>
+  </button>
+</div>

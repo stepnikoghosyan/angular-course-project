@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 // modules
 import { PostsRoutingModule } from './posts-routing.module';
@@ -9,6 +10,7 @@ import { CustomForms } from '@shared/modules/form-error-messages/custom-forms.mo
 import { PostsListModule } from '@shared/modules/posts-list/posts-list.module';
 import { CommentsModule } from '../comments/comments.module';
 import { DirectivesModule } from '@shared/modules/directives/directives.module';
+import { SearchInputModule } from '@shared/modules/search-input/search-input.module';
 
 // components
 import { PostsComponent } from './posts.component';
@@ -26,12 +28,15 @@ import { ManagePostComponent } from './components/manage-post/manage-post.compon
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    NgSelectModule,
     PostsRoutingModule,
     LoadersModule,
     CustomForms,
     PostsListModule,
     CommentsModule,
     DirectivesModule,
+    FormsModule,
+    SearchInputModule,
   ],
 })
 export class PostsModule {
