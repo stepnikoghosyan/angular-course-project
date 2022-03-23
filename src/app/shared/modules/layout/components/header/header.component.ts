@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public currentUserProfilePicture = '/assets/img/post-image-placeholder.png';
 
   public readonly routes = {
-    myPosts: [getFullRoute(AppRoutes.Posts)],
+    posts: [getFullRoute(AppRoutes.Posts)],
     profile: getFullRoute(AppRoutes.Profile),
   };
 
@@ -45,8 +45,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscription = this.appStateService.getCurrentUser()
       .subscribe({
         next: (val) => {
-          this.currentUserId = val!.id;
-          this.currentUserProfilePicture = val!.profilePictureUrl || '/assets/img/post-image-placeholder.png';
+          this.currentUserId = val?.id;
+          this.currentUserProfilePicture = val?.profilePictureUrl || '/assets/img/post-image-placeholder.png';
 
           this.cdr.markForCheck();
         },
