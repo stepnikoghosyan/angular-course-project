@@ -12,6 +12,7 @@ import { IPostsQueryParams } from '../../models/posts-query-params.model';
 
 // helpers
 import { getFullRoute } from '@shared/utils/get-full-route.helper';
+import { AppStateService } from '../../../../services/app-state.service';
 
 @Component({
   selector: 'app-posts-filter',
@@ -26,12 +27,15 @@ export class PostsFilterComponent implements OnInit, OnDestroy {
 
   public readonly createPostRoute = getFullRoute(AppRoutes.CreatePost);
 
+  private currentUser: IUser | null = null;
+
   public usersList: IUser[] | null = null;
 
   private subscriptions$ = new Subject<void>();
 
   constructor(
     private readonly usersService: UsersService,
+    private readonly appStateService: AppStateService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
   ) {
@@ -40,14 +44,23 @@ export class PostsFilterComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getUsers();
 
+    this.appStateService.getCurrentUser()
+      .pipe(takeUntil(this.subscriptions$))
+      .subscribe(val => this.currentUser = val);
+
     this.subscribeToQueryParams();
   }
 
   private getUsers(): void {
-    this.usersService.getUsers({ showAll: true })
+    this.usersService.getUsers({ showAll: true, excludeSelf: true })
       .pipe(takeUntil(this.subscriptions$))
       .subscribe({
-        next: (response) => this.usersList = response.results,
+        next: (response) => {
+          this.usersList = [
+            ...(!!this.currentUser && [{ ...this.currentUser, fullName: '@Me' }] || []),
+            ...response.results,
+          ];
+        },
         error: () => this.usersList = [],
       });
   }

@@ -9,7 +9,7 @@ import { AppStateService } from '../../../services/app-state.service';
 
 // models
 import { IUser } from '../models/user.model';
-import { IQueryParams } from '@shared/models/query-params.model';
+import { IUsersQueryParams } from '../models/users-query-params.model';
 import { IPaginationResponse } from '@shared/models/pagination-response.model';
 
 // dto
@@ -33,12 +33,12 @@ export class UsersService extends BaseHttpService<IUser> {
   public getCurrentUser(): Observable<IUser> {
     return this.get<IUser>(`${ this.URL }/my-profile`)
       .pipe(
-        tap(response => this.appStateService.setCurrentUser(response)),
         map(res => normalizeUserResponse(res)),
+        tap(response => this.appStateService.setCurrentUser(response)),
       );
   }
 
-  public getUsers(params?: IQueryParams): Observable<IPaginationResponse<IUser>> {
+  public getUsers(params?: IUsersQueryParams): Observable<IPaginationResponse<IUser>> {
     return this.getByPagination<IUser>(this.URL, params)
       .pipe(
         map(res => ({
