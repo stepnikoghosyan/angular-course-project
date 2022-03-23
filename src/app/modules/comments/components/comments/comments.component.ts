@@ -9,7 +9,7 @@ import { AppStateService } from '../../../../services/app-state.service';
 import { NotificationsService } from '@shared/modules/notifications/services/notifications.service';
 
 // models
-import { IPost } from '../../models/post.model';
+import { IPost } from '../../../posts/models/post.model';
 import { IComment } from '../../models/comment.model';
 import { IApiErrorResponse } from '@shared/models/api-error-response.model';
 import { NotificationTypes } from '@shared/modules/notifications/models/notification-types.model';

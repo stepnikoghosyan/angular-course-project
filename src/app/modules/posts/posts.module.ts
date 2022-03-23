@@ -6,24 +6,20 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PostsRoutingModule } from './posts-routing.module';
 import { LoadersModule } from '@shared/modules/loaders/loaders.module';
 import { CustomForms } from '@shared/modules/form-error-messages/custom-forms.module';
+import { PostsListModule } from '@shared/modules/posts-list/posts-list.module';
+import { CommentsModule } from '../comments/comments.module';
+import { DirectivesModule } from '@shared/modules/directives/directives.module';
 
 // components
 import { PostsComponent } from './posts.component';
 import { PostsFilterComponent } from './components/posts-filter/posts-filter.component';
 import { PostViewComponent } from './components/post-view/post-view.component';
 import { ManagePostComponent } from './components/manage-post/manage-post.component';
-import { CommentsComponent } from './components/comments/comments.component';
-
-// directives
-import { AutoResizeTextareaDirective } from './directives/auto-resize-textarea.directive';
-import { PostsListModule } from '@shared/modules/posts-list/posts-list.module';
 
 @NgModule({
   declarations: [
     PostsComponent,
     PostsFilterComponent,
-    CommentsComponent,
-    AutoResizeTextareaDirective,
     PostViewComponent,
     ManagePostComponent,
   ],
@@ -34,6 +30,8 @@ import { PostsListModule } from '@shared/modules/posts-list/posts-list.module';
     LoadersModule,
     CustomForms,
     PostsListModule,
+    CommentsModule,
+    DirectivesModule,
   ],
 })
 export class PostsModule {
