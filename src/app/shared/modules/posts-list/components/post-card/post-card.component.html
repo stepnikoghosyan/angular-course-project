@@ -24,7 +24,10 @@
         </span>
       </div>
 
-      <a [routerLink]="['/', APP_ROUTES.Posts, APP_ROUTES.UpdatePost, post?.id]" class="btn btn-sm btn-outline-primary ms-3">
+      <a *ngIf="currentUserId === post?.user?.id"
+         [routerLink]="['/', APP_ROUTES.Posts, APP_ROUTES.UpdatePost, post?.id]"
+         class="btn btn-sm btn-outline-primary ms-3"
+      >
         <i class="fa fa-edit"></i>
       </a>
 

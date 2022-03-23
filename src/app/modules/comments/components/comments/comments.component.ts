@@ -60,10 +60,10 @@ export class CommentsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.subscriptions$))
       .subscribe({
         next: (val) => {
-          this.currentUserId = val!.id;
-          this.currentUserProfilePicture = val!.profilePictureUrl || '/assets/img/avatar-placeholder.png';
+          this.currentUserId = val && val.id || null;
+          this.currentUserProfilePicture = val?.profilePictureUrl || '/assets/img/avatar-placeholder.png';
         },
-      })
+      });
   }
 
   private getCommentsForPost(): void {

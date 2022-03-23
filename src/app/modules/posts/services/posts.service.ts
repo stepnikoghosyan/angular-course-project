@@ -114,7 +114,7 @@ export class PostsService extends BaseHttpService<IPost> {
           });
           this.router.navigate([AppRoutes.Posts]);
 
-          return err.status === 404 ? EMPTY : throwError(() => err);
+          return throwError(() => err);
         }),
       );
   }
