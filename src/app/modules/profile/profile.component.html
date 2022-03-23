@@ -15,7 +15,6 @@
 
           <input #fileInput
                  (change)="onFileChange($event)"
-                 (click)="clearFileInput(fileInput)"
                  [disabled]="isLoading"
                  accept="image/*"
                  class="change-profile-picture-file-input"
