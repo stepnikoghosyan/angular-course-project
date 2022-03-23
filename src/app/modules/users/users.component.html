@@ -1,0 +1,36 @@
+<h1 class="text-center">Users</h1>
+
+<app-spinner *ngIf="!users"></app-spinner>
+
+<!-- Search -->
+<section class="row p-3 mt-4">
+  <div class="d-flex justify-content-center align-items-center">
+    <app-search
+      [value]="searchValue"
+      (onSearch)="onSearch($event)">
+    </app-search>
+  </div>
+</section>
+
+<!-- User Cards -->
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4 mb-5">
+  <div *ngFor="let user of users" class="col">
+    <div class="card h-100 shadow p-3 bg-white rounded border-0">
+
+      <!-- Card body -->
+      <img [src]="user.profilePictureUrl" class="card-img-top" [alt]="'Image for user - ' + user.fullName">
+      <div class="card-body">
+        <h5 class="card-title text-center">{{ user.fullName }}</h5>
+
+        <p class="text-center">
+          {{ user.email }}
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<p *ngIf="!!users && !users.length" class="text-secondary text-center">No Data</p>
+

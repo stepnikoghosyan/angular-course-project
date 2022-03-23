@@ -46,6 +46,10 @@ const routes: Routes = [
         loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule),
       },
       {
+        path: AppRoutes.Users,
+        loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule),
+      },
+      {
         path: AppRoutes.NotFound,
         component: NotFoundComponent,
       },
