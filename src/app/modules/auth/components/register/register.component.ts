@@ -11,6 +11,7 @@ import { NotificationsService } from '@shared/modules/notifications/services/not
 // models
 import { NotificationTypes } from '@shared/modules/notifications/models/notification-types.model';
 import { IApiErrorResponse } from '@shared/models/api-error-response.model';
+import { AppRoutes } from '@shared/models/app-routes.model';
 
 // dto
 import { RegisterDto } from '../../models/dto/register.dto';
@@ -18,6 +19,7 @@ import { RegisterDto } from '../../models/dto/register.dto';
 // validators
 import { emailValidator } from '../../validators/email.validator';
 import { notOnlySpacesValidator } from '@shared/validators/not-only-spaces.validator';
+import { getFullRoute } from '@shared/utils/get-full-route.helper';
 
 @Component({
   selector: 'app-register',
@@ -84,7 +86,7 @@ export class RegisterComponent implements OnDestroy {
       message: 'New account created. Please check your email address.',
       title: 'Success',
     });
-    this.router.navigate(['/auth/login']);
+    this.router.navigate([getFullRoute(AppRoutes.Login)]);
   }
 
   private handleError(err: HttpErrorResponse): void {

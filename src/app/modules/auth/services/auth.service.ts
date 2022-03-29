@@ -14,6 +14,7 @@ import { ITokensResponse } from '../models/tokens-response.model';
 import { IRefreshTokensPayload } from '../models/payload/refresh-tokens-payload.model';
 import { IVerifyAccountQueryParams } from '../models/verify-account-query-params.model';
 import { IUser } from '../../users/models/user.model';
+import { AppRoutes } from '@shared/models/app-routes.model';
 
 // dto
 import { ResetPasswordDto } from '../models/dto/reset-password.dto';
@@ -21,6 +22,9 @@ import { ForgotPasswordDto } from '../models/dto/forgot-password.dto';
 import { LoginDto } from '../models/dto/login.dto';
 import { RegisterDto } from '../models/dto/register.dto';
 import { ResendActivationTokenDto } from '../models/dto/resend-activation-token.dto';
+
+// helpers
+import { getFullRoute } from '@shared/utils/get-full-route.helper';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends BaseHttpService<any> {
@@ -81,6 +85,6 @@ export class AuthService extends BaseHttpService<any> {
   public logout(): void {
     this.storageService.clear();
     this.appStateService.clear();
-    this.router.navigate(['/auth/login']);
+    this.router.navigate([getFullRoute(AppRoutes.Login)]);
   }
 }

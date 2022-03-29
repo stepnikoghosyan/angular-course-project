@@ -11,12 +11,16 @@ import { NotificationsService } from '@shared/modules/notifications/services/not
 // models
 import { IApiErrorResponse } from '@shared/models/api-error-response.model';
 import { NotificationTypes } from '@shared/modules/notifications/models/notification-types.model';
+import { AppRoutes } from '@shared/models/app-routes.model';
 
 // dto
 import { ResendActivationTokenDto } from '../../models/dto/resend-activation-token.dto';
 
 // validators
 import { emailValidator } from '../../validators/email.validator';
+
+// helpers
+import { getFullRoute } from '@shared/utils/get-full-route.helper';
 
 @Component({
   selector: 'app-verify-account',
@@ -60,7 +64,7 @@ export class VerifyAccountComponent implements OnInit {
             message: 'Account verified',
           });
 
-          this.router.navigate(['/auth/login']);
+          this.router.navigate([getFullRoute(AppRoutes.Login)]);
         },
         error: (err: HttpErrorResponse) => {
           const errorMsg = (err.error as IApiErrorResponse).message || 'Unknown Error Occurred';
@@ -106,7 +110,7 @@ export class VerifyAccountComponent implements OnInit {
             message: 'New email was sent to Your email address',
           });
 
-          this.router.navigate(['/auth/login']);
+          this.router.navigate([getFullRoute(AppRoutes.Login)]);
         },
         error: (error: HttpErrorResponse) => {
           const message = (error.error as IApiErrorResponse).message || 'Unknown Error Occurred';
