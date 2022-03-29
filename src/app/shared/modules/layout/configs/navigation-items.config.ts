@@ -14,7 +14,7 @@ export function getNavigationItemsConfig(): INavigationItemsConfig[] {
     },
     {
       label: 'Users',
-      route: '/users', // TODO: update
+      route: getFullRoute(AppRoutes.Users),
       routerLinkActive: 'custom-active',
     },
     {
