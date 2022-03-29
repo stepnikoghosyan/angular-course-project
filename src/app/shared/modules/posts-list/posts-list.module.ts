@@ -8,6 +8,8 @@ import { LoadersModule } from '@shared/modules/loaders/loaders.module';
 // components
 import { PostsListComponent } from '@shared/modules/posts-list/components/posts-list/posts-list.component';
 import { PostCardComponent } from '@shared/modules/posts-list/components/post-card/post-card.component';
+import { DirectivesModule } from '@shared/modules/directives/directives.module';
+import { LazyImageModule } from '@shared/modules/lazy-image/lazy-image.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { PostCardComponent } from '@shared/modules/posts-list/components/post-ca
     CommonModule,
     RouterModule,
     LoadersModule,
+    DirectivesModule,
+    LazyImageModule,
   ],
   exports: [
     PostsListComponent,

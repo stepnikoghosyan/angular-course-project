@@ -19,7 +19,7 @@ export class PostViewComponent implements OnInit, OnDestroy {
 
   public post?: IPost;
 
-  public readonly defaultImgPath = '/assets/img/post-image-placeholder.png';
+  public readonly defaultImgPath = '/assets/img/no-image.png';
 
   private subscriptions$ = new Subject<void>();
 
@@ -32,14 +32,14 @@ export class PostViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscribeToQueryParams();
+    this.subscribeToParams();
   }
 
-  private subscribeToQueryParams(): void {
+  private subscribeToParams(): void {
     this.route.paramMap
       .pipe(takeUntil(this.subscriptions$))
       .subscribe(val => {
-        if (val.has('id')) {
+        if (val.has('id') && +val.get('id')! > 0) {
           this.getPost(+val.get('id')!);
         } else {
           this.router.navigate([AppRoutes.Posts]);

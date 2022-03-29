@@ -90,7 +90,7 @@ export class PostsService extends BaseHttpService<IPost> {
   }
 
   public updatePost(id: number, payload: IUpdatePostPayload): Observable<ICreateOrUpdatePostResponse> {
-    return this.put<IUpdatePostPayload, ICreateOrUpdatePostResponse>(`${ this.URL }/${ id }`, payload)
+    return this.put<FormData, ICreateOrUpdatePostResponse>(`${ this.URL }/${ id }`, convertJsonToFormData(payload))
       .pipe(
         tap(() => {
           this.notificationsService.showNotification({

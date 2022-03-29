@@ -8,7 +8,7 @@ export class UpdateUserDto {
   password: string;
 
   constructor(data: IUpdateUserFormValue) {
-    if (!!data.image && data.image instanceof File) {
+    if (!!data.image) {
       this.profilePicture = data.image;
     }
 

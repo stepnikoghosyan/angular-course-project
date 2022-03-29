@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { catchError, EMPTY, Observable, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 // services
 import { StorageService } from '@shared/services/storage.service';
@@ -24,29 +24,27 @@ export class TokenInterceptor implements HttpInterceptor {
       .pipe(
         catchError((error: any) => {
           if (error instanceof HttpErrorResponse) {
+            // 401 error
             if (error.status === 401) {
               if (this.authService.isAuthenticated) {
                 this.authService.logout();
               }
-
-              return EMPTY;
             }
 
+            // 403 error
             if (error.status === 403) {
               this.notificationsService.showNotification({
                 type: NotificationTypes.ERROR,
                 message: 'Access Denied',
               });
-
-              return EMPTY;
             }
 
+            // 500 error
             if (error.status >= 500) {
               this.notificationsService.showNotification({
                 type: NotificationTypes.ERROR,
                 message: 'Internal Server Error',
               });
-              return EMPTY;
             }
           }
 

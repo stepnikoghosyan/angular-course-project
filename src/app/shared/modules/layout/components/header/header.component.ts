@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public readonly navigationItems = getNavigationItemsConfig();
 
   public currentUserId?: number;
-  public currentUserProfilePicture = '/assets/img/post-image-placeholder.png';
+  public currentUserProfilePicture = '/assets/img/no-image.png';
 
   public readonly routes = {
     posts: [getFullRoute(AppRoutes.Posts)],
@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (val) => {
           this.currentUserId = val?.id;
-          this.currentUserProfilePicture = val?.profilePictureUrl || '/assets/img/post-image-placeholder.png';
+          this.currentUserProfilePicture = val?.profilePictureUrl || '/assets/img/no-image.png';
 
           this.cdr.markForCheck();
         },

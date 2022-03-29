@@ -1,7 +1,8 @@
 <div class="card h-100">
 
   <!-- Card body -->
-  <img [src]="post?.imageUrl" class="card-img-top" [alt]="'Image for post - ' + post?.title">
+  <app-lazy-image [src]="post?.imageUrl"></app-lazy-image>
+
   <div class="card-body">
     <h5 class="card-title text-center">{{ post?.title }}</h5>
 
