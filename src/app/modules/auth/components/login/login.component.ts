@@ -15,6 +15,10 @@ import { LoginDto } from '../../models/dto/login.dto';
 
 // validators
 import { emailValidator } from '../../validators/email.validator';
+import { getFullRoute } from '@shared/utils/get-full-route.helper';
+
+// helpers
+import { AppRoutes } from '@shared/models/app-routes.model';
 
 @Component({
   selector: 'app-login',
@@ -65,7 +69,7 @@ export class LoginComponent implements OnDestroy {
     this.subscription = this.authService.login(new LoginDto(this.form.value), this.form.value.rememberMe)
       .subscribe({
         next: () => {
-          this.router.navigate(['/home']);
+          this.router.navigate([getFullRoute(AppRoutes.Home)]);
         },
         error: (err: HttpErrorResponse) => {
           this.responseErrorMsg = (err.error as IApiErrorResponse).message || 'Unknown error occurred';
