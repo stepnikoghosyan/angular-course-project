@@ -111,7 +111,7 @@ export class ManagePostComponent implements OnInit, OnDestroy {
             id: response.id,
             title: response.title,
             body: response.body,
-            image: response.imageUrl !== '/assets/img/no-image.png' && response.imageUrl || null,
+            image: response.imageUrl || null,
           });
 
           this.isLoading = false;

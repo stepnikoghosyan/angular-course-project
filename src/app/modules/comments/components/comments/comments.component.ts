@@ -61,7 +61,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (val) => {
           this.currentUserId = val && val.id || null;
-          this.currentUserProfilePicture = val?.profilePictureUrl || '/assets/img/avatar-placeholder.png';
+          this.currentUserProfilePicture = !!val && val.profilePictureUrl || '/assets/img/avatar-placeholder.png';
         },
       });
   }

@@ -13,9 +13,8 @@
 
   <h1 class="mt-4 fw-bold">{{ post.title }}</h1>
 
-  <div class="d-flex justify-content-center align-items-center" [ngClass]="{ 'mt-5': post.imageUrl !== defaultImgPath }">
+  <div *ngIf="!!post.imageUrl" class="d-flex justify-content-center align-items-center mt-5">
     <img [src]="post.imageUrl"
-         [ngClass]="{ 'default-img': post.imageUrl === defaultImgPath }"
          class="mw-100"
          alt="Post Image"/>
   </div>

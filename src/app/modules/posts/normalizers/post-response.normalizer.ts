@@ -8,7 +8,7 @@ export function normalizePostResponse(post: IPost): IPost {
   return {
     ...post,
     user: normalizeUserResponse(post.user),
-    imageUrl: post.imageUrl || '/assets/img/no-image.png',
+    imageUrl: post.imageUrl || null,
     createdAt: new Date(post.createdAt),
     updatedAt: new Date(post.updatedAt),
   };
