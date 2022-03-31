@@ -1,5 +1,4 @@
 import { APP_INITIALIZER } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
 import { take } from 'rxjs';
 
 // services
@@ -8,7 +7,7 @@ import { UsersService } from '../modules/users/services/users.service';
 
 function appInitializer(authService: AuthService, usersService: UsersService) {
   return () => {
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<void>((resolve) => {
       if (!authService.isAuthenticated) {
         resolve();
         return;
@@ -20,12 +19,9 @@ function appInitializer(authService: AuthService, usersService: UsersService) {
           next: () => {
             resolve();
           },
-          error: (err: HttpErrorResponse) => {
-            if (err.status === 401) {
-              resolve();
-            } else {
-              reject(err);
-            }
+          error: () => {
+            authService.logout();
+            resolve();
           },
         });
     });
