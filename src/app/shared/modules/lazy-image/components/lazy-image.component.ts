@@ -19,11 +19,13 @@ export class LazyImageComponent {
     }
   }
 
+  @Input() public containerClass = '';
+  @Input() public defaultImageSrc = '/assets/img/no-image.png';
+
   public imageSrc?: string;
 
   public isLoading = true;
 
-  private readonly defaultImageSrc = '/assets/img/no-image.png';
 
   constructor(
     private readonly cdr: ChangeDetectorRef,

@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 // modules
 import { LoadersModule } from '@shared/modules/loaders/loaders.module';
 import { DirectivesModule } from '@shared/modules/directives/directives.module';
+import { LazyImageModule } from '@shared/modules/lazy-image/lazy-image.module';
 
 // components
 import { CommentsComponent } from './components/comments/comments.component';
@@ -18,6 +19,7 @@ import { CommentsComponent } from './components/comments/comments.component';
     CommonModule,
     LoadersModule,
     DirectivesModule,
+    LazyImageModule,
   ],
   exports: [
     CommentsComponent,
