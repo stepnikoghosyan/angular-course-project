@@ -17,7 +17,7 @@ export function anyToHttpParams(obj?: IQueryParams): HttpParams {
     // If array is empty => remove it from query params
     // If array item is null or undefined => remove it from array
     if (obj[key] && Array.isArray(obj[key])) {
-      appendArrayToHttpParams(param, key, obj[key]);
+      param = appendArrayToHttpParams(param, key, obj[key]);
     } else if (obj[key]) {
       param = param.set(key, obj[key] as string);
     }
